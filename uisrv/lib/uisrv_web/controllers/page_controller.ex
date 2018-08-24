@@ -1,7 +1,12 @@
 defmodule UisrvWeb.PageController do
   use UisrvWeb, :controller
+  alias Uisrv.Model.Accounts
+  alias UisrvWeb.Guardian
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    conn
+    |> assign(:users, Accounts.list_users())
+    |> assign(:current_user, Guardian.Plug.current_resource(conn))
+    |> render("index.html")
   end
 end

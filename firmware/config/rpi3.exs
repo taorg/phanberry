@@ -43,3 +43,13 @@ config :nerves_init_gadget,
   node_name: :firmware,
   mdns_domain: ":firmware.local",
   ssh_console_port: 22
+
+  config :uisrv, UisrvWeb.Endpoint,
+  url: [host: "localhost"],
+  http: [port: 80],
+  secret_key_base: "s+p9jABrjMUuISSfH5VfOC3RR00QM9NQLBzUZ9VLN7IQN52HUjsNuShvsAi5qb1U",
+  root: Path.dirname(__DIR__),
+  server: true,
+  render_errors: [view: UisrvWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Nerves.PubSub, adapter: Phoenix.PubSub.PG2],
+  code_reloader: false

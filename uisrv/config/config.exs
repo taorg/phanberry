@@ -10,7 +10,7 @@ config :uisrv, Uisrv.Repo,
   adapter: Sqlite.Ecto2,
   database: "./#{Mix.env()}.sqlite3"
 
-# General application configuration
+  # General application configuration
 config :uisrv,
   ecto_repos: [Uisrv.Repo]
 
@@ -25,6 +25,15 @@ config :uisrv, UisrvWeb.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
+
+# Configures Guardian
+config :uisrv, UisrvWeb.Guardian,
+  issuer: "uisrv",
+  secret_key: "yXTaFIVBQLMfRo4iUCpvp9zw/TIymBLIW22KIdqToOU0+P2NgIJVNaWAKbkTlr2h",
+  token_ttl: %{
+    "magic" => {30, :minutes},
+    "access" => {1, :days}
+  }
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

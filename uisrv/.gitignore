@@ -4,6 +4,7 @@
 /deps
 /*.ez
 /.elixir_ls
+/dev.sqlite3*
 
 # Generated on crash by the VM
 erl_crash.dump

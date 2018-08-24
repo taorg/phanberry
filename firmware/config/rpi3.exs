@@ -1,6 +1,15 @@
 # Configuration for the Raspberry Pi 3 (target rpi3)
 use Mix.Config
 
+# Configure your database
+config :uisrv, Uisrv.Repo,
+  adapter: Sqlite.Ecto2,
+  database: "/root/#{Mix.env()}.sqlite3"
+
+# General application configuration
+config :uisrv,
+  ecto_repos: [Uisrv.Repo]
+
 key_mgmt = System.get_env("NERVES_NETWORK_KEY_MGMT") || "WPA-PSK"
 
 config :nerves_network,

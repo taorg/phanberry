@@ -50,7 +50,8 @@ defmodule Firmware.MixProject do
 
   defp deps(target) do
     [
-      {:nerves_runtime, "~> 0.6"}
+      {:nerves_runtime, "~> 0.6"},
+      {:uisrv, path: "../uisrv"}
     ] ++ system(target)
   end
 

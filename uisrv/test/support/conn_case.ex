@@ -26,13 +26,13 @@ defmodule UisrvWeb.ConnCase do
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Uisrv.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Uisrv.Repo, {:shared, self()})
     end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end

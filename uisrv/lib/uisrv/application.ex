@@ -11,7 +11,7 @@ defmodule Uisrv.Application do
       # Start the Ecto repository
       supervisor(Uisrv.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(UisrvWeb.Endpoint, []),
+      supervisor(UisrvWeb.Endpoint, [])
       # Start your own worker by calling: Uisrv.Worker.start_link(arg1, arg2, arg3)
       # worker(Uisrv.Worker, [arg1, arg2, arg3]),
     ]

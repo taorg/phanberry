@@ -25,13 +25,13 @@ defmodule UisrvWeb.ChannelCase do
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Uisrv.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Uisrv.Repo, {:shared, self()})
     end
+
     :ok
   end
-
 end

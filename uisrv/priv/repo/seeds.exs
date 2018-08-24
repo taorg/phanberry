@@ -9,3 +9,8 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+import Uisrv.Repo, only: [delete_all: 1, insert!: 1]
+alias Uisrv.Model.User
+%User{}
+|>User.changeset(%{name: "admin", email: "admin@phantaberry.tv", password: "CHANGE_ME"})
+|>insert!

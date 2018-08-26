@@ -1,6 +1,7 @@
 # Firmware
 
-**TODO: Add description**
+This is the firmware module, part of Phantaberry project, develop with Nerves framework in Elixir language.
+It is intended to run on a Raspberry pi3 so `MIX_TARGET=rpi3`
 
 ## Targets
 
@@ -12,18 +13,20 @@ a short name like `rpi3` that maps to a Nerves system image for that platform.
 All of this logic is in the generated `mix.exs` and may be customized. For more
 information about targets see:
 
-https://hexdocs.pm/nerves/targets.html#content
+<https://hexdocs.pm/nerves/targets.html#content>
 
 ## Getting Started
 
 To start your Nerves app:
-  * `export MIX_TARGET=my_target` or prefix every command with
+
+* `export MIX_TARGET=my_target` or prefix every command with
     `MIX_TARGET=my_target`. For example, `MIX_TARGET=rpi3`
-  * Install dependencies with `mix deps.get`
-  * Create firmware with `mix firmware`
-  * Burn to an SD card with `mix firmware.burn`
+* Install dependencies with `mix deps.get`
+* Create firmware with `mix firmware`
+* Burn to an SD card with `mix firmware.burn`
 
 ## mix release
+
 ```elixir
 ==> Packaging release..
 Release succesfully built!
@@ -51,8 +54,8 @@ For a complete listing of commands and their use:
     > _build/rpi3/dev/rel/firmware/bin/firmware help
 ```
 
+## Connet Observer to remote device
 
-##Connet Observer to remote device 
 At your localmachine start iex with applicatoin secret coockie locate in /rel/vm.args
 
 ```bash
@@ -75,11 +78,13 @@ At your localmachine again
 ```bash
 iex(host@192.168.1.5)3> Node.list
 [:"firmware@:firmware.local"]
-iex(host@192.168.1.5)4> :observer.start()   
+iex(host@192.168.1.5)4> :observer.start()
 ```
+
 And now yo can change nodes with the menu ![:observer](../docs/imgs/observer.png)
 
 ## RingLogger
+
 Log messages aren't printed to the console by default. If you're seeing them,
 they may be coming from Elixir's default `:console` logger.
 
@@ -106,7 +111,7 @@ iex> Logger.info("hello")
 
 ## Learn more
 
-  * Official docs: https://hexdocs.pm/nerves/getting-started.html
-  * Official website: http://www.nerves-project.org/
-  * Discussion Slack elixir-lang #nerves ([Invite](https://elixir-slackin.herokuapp.com/))
-  * Source: https://github.com/nerves-project/nerves
+* Official docs: <https://hexdocs.pm/nerves/getting-started.html>
+* Official website: <http://www.nerves-project.org/>
+* Discussion Slack elixir-lang #nerves ([Invite](https://elixir-slackin.herokuapp.com/))
+* Source: <https://github.com/nerves-project/nerves>

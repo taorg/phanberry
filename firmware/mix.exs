@@ -39,9 +39,7 @@ defmodule Firmware.MixProject do
   defp deps do
     [
       {:nerves, "~> 1.3", runtime: false},
-      {:nerves_init_gadget, "~> 0.4"},
-      {:nerves_firmware_ssh, "~> 0.3"},
-      {:shoehorn, "~> 0.4"}
+      {:distillery, "2.0.7", runtime: false, override: true}
     ] ++ deps(@target)
   end
 
@@ -50,7 +48,10 @@ defmodule Firmware.MixProject do
 
   defp deps(target) do
     [
+      {:nerves_init_gadget, "~> 0.4"},
+      {:nerves_firmware_ssh, "~> 0.3"},
       {:nerves_runtime, "~> 0.6"},
+      {:shoehorn, "~> 0.4"},
       {:uisrv, path: "../uisrv"}
     ] ++ system(target)
   end

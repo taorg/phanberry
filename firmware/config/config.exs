@@ -14,7 +14,7 @@ config :nerves, :firmware, rootfs_overlay: "rootfs_overlay"
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
 config :shoehorn,
-  init: [:nerves_runtime,:nerves_network],
+  init: [:nerves_runtime, :nerves_network],
   app: Mix.Project.config()[:app]
 
 # Add the RingLogger backend. This removes the
@@ -23,11 +23,10 @@ config :logger, backends: [RingLogger]
 
 # Set the number of messages to hold in the circular buffer
 config :logger, RingLogger, max_size: 100
-  config :logger, level: :debug
-
+config :logger, level: :debug
 
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 # Uncomment to use target specific configurations
 
- import_config "#{Mix.Project.config[:target]}.exs"
+import_config "#{Mix.Project.config()[:target]}.exs"

@@ -25,11 +25,11 @@ config :nerves_network, :default,
     ipv4_address_method: :dhcp
   ]
 
-  # Uncomment the following line for the interface you intend to use,
+# Uncomment the following line for the interface you intend to use,
 # if not the wired :eth0 interface.
-  config :firmware, interface: :wlan0
-  # config :firmware, interface: :eth0
-  # config :firmware, interface: :usb0
+config :firmware, interface: :wlan0
+# config :firmware, interface: :eth0
+# config :firmware, interface: :usb0
 
 # Nerves.Firmware.SSH An infrastruction to support "over-the-air" firmware updates with Nerves by using ssh
 config :nerves_firmware_ssh,
@@ -44,7 +44,7 @@ config :nerves_init_gadget,
   mdns_domain: ":firmware.local",
   ssh_console_port: 22
 
-  config :uisrv, UisrvWeb.Endpoint,
+config :uisrv, UisrvWeb.Endpoint,
   url: [host: "localhost"],
   http: [port: 80],
   secret_key_base: "s+p9jABrjMUuISSfH5VfOC3RR00QM9NQLBzUZ9VLN7IQN52HUjsNuShvsAi5qb1U",

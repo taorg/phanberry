@@ -38,7 +38,7 @@ defmodule Uisrv.Auth.Guardian do
 
   @impl true
   def after_sign_in(conn, resource, _token, _claims, _opts) do
-    GuardianTrackable.track!(MyApp.Repo, resource, conn.remote_ip)
+    GuardianTrackable.track!(Uisrv.Repo, resource, conn.remote_ip)
     {:ok, conn}
   end
 end

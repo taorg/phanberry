@@ -2,7 +2,7 @@ defmodule UisrvWeb.AuthController do
   use UisrvWeb, :controller
 
   alias Uisrv.Model.Accounts
-  alias UisrvWeb.Guardian
+  alias Uisrv.Auth.Guardian
 
   def new(conn, _params) do
     conn

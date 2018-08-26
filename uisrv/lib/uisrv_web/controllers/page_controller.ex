@@ -1,7 +1,7 @@
 defmodule UisrvWeb.PageController do
   use UisrvWeb, :controller
   alias Uisrv.Model.Accounts
-  alias UisrvWeb.Guardian
+  alias Uisrv.Auth.Guardian
 
   def index(conn, _params) do
     conn

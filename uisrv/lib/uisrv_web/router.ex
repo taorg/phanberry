@@ -9,7 +9,7 @@ defmodule UisrvWeb.Router do
     plug(:put_secure_browser_headers)
 
     plug(Guardian.Plug.Pipeline,
-      module: UisrvWeb.Guardian,
+      module: Uisrv.Auth.Guardian,
       error_handler: UisrvWeb.AuthController
     )
 

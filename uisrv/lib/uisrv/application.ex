@@ -35,6 +35,7 @@ defmodule Uisrv.Application do
     UisrvWeb.Endpoint.config_change(changed, removed)
     :ok
   end
+
   defp setup_db! do
     repos = Application.get_env(@otp_app, :ecto_repos)
 
@@ -74,5 +75,4 @@ defmodule Uisrv.Application do
     pid && repo.stop(pid)
     Mix.Ecto.restart_apps_if_migrated(apps, migrated)
   end
-
 end

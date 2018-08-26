@@ -38,8 +38,7 @@ defmodule Firmware.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:nerves, "~> 1.3", runtime: false},
-      {:distillery, "2.0.7", runtime: false, override: true}
+      {:nerves, "~> 1.3", runtime: false}
     ] ++ deps(@target)
   end
 

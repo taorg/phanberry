@@ -1,15 +1,6 @@
 # Configuration for the Raspberry Pi 3 (target rpi3)
 use Mix.Config
 
-# Configure your database
-config :uisrv, Uisrv.Repo,
-  adapter: Sqlite.Ecto2,
-  database: "/root/#{Mix.env()}.sqlite3"
-
-# General application configuration
-config :uisrv,
-  ecto_repos: [Uisrv.Repo]
-
 key_mgmt = System.get_env("NERVES_NETWORK_KEY_MGMT") || "WPA-PSK"
 
 config :nerves_network,
@@ -44,6 +35,15 @@ config :nerves_init_gadget,
   mdns_domain: ":firmware.local",
   ssh_console_port: 22
 
+# Configure your database
+config :uisrv, Uisrv.Repo,
+  adapter: Sqlite.Ecto2,
+  database: "/root/#{Mix.env()}.sqlite3"
+
+# General application configuration
+config :uisrv,
+  ecto_repos: [Uisrv.Repo]
+
 config :uisrv, UisrvWeb.Endpoint,
   url: [host: "localhost"],
   http: [port: 80],
@@ -53,3 +53,12 @@ config :uisrv, UisrvWeb.Endpoint,
   render_errors: [view: UisrvWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Nerves.PubSub, adapter: Phoenix.PubSub.PG2],
   code_reloader: false
+
+# Configures Guardian
+config :uisrv, Uisrv.Auth.Guardian,
+  issuer: "uisrv",
+  secret_key: "Utahl6iK5poGWhrnunoDCLADNg3v4S0/XU4A4e2IjOfZvRZW3XX4TResib63ENiW",
+  token_ttl: %{
+    "magic" => {30, :minutes},
+    "access" => {1, :days}
+  }

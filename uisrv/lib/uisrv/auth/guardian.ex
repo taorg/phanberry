@@ -1,4 +1,4 @@
-defmodule UisrvWeb.Guardian do
+defmodule Uisrv.Auth.Guardian do
   use Guardian, otp_app: :uisrv
   use SansPassword
 
@@ -34,5 +34,11 @@ defmodule UisrvWeb.Guardian do
         #{auth_url(Endpoint, :callback, magic_token)}
 
     """)
+  end
+
+  @impl true
+  def after_sign_in(conn, resource, _token, _claims, _opts) do
+    GuardianTrackable.track!(MyApp.Repo, resource, conn.remote_ip)
+    {:ok, conn}
   end
 end

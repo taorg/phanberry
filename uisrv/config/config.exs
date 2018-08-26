@@ -10,7 +10,7 @@ config :uisrv, Uisrv.Repo,
   adapter: Sqlite.Ecto2,
   database: "./#{Mix.env()}.sqlite3"
 
-  # General application configuration
+# General application configuration
 config :uisrv,
   ecto_repos: [Uisrv.Repo]
 
@@ -27,9 +27,9 @@ config :logger, :console,
   metadata: [:user_id]
 
 # Configures Guardian
-config :uisrv, UisrvWeb.Guardian,
+config :uisrv, Uisrv.Auth.Guardian,
   issuer: "uisrv",
-  secret_key: "yXTaFIVBQLMfRo4iUCpvp9zw/TIymBLIW22KIdqToOU0+P2NgIJVNaWAKbkTlr2h",
+  secret_key: "Utahl6iK5poGWhrnunoDCLADNg3v4S0/XU4A4e2IjOfZvRZW3XX4TResib63ENiW",
   token_ttl: %{
     "magic" => {30, :minutes},
     "access" => {1, :days}

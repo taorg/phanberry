@@ -1,5 +1,6 @@
 defmodule UisrvWeb.AuthController do
   use UisrvWeb, :controller
+  require Logger
 
   alias Uisrv.Model.Accounts
   alias Uisrv.Auth.Guardian
@@ -44,6 +45,7 @@ defmodule UisrvWeb.AuthController do
   end
 
   def auth_error(conn, error, _opts) do
+    Logger.error("Authentication error #{inspect(error)}")
     conn
     |> put_flash(:error, "Authentication error.")
     |> redirect(to: auth_path(conn, :new))

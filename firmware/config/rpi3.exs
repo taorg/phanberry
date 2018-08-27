@@ -45,7 +45,9 @@ config :uisrv,
   ecto_repos: [Uisrv.Repo]
 
 config :uisrv, UisrvWeb.Endpoint,
-  url: [host: "localhost"],
+#This ip should be a public domain for an internet connected Raspberry
+#For local test we fix our DHCP server to assing this ip to Raspberry's device wlan0
+  url: [host: "192.168.1.50"],
   http: [port: 80],
   secret_key_base: "s+p9jABrjMUuISSfH5VfOC3RR00QM9NQLBzUZ9VLN7IQN52HUjsNuShvsAi5qb1U",
   root: Path.dirname(__DIR__),

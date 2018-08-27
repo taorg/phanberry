@@ -21,11 +21,12 @@ defmodule Uisrv.Auth.Guardian do
   end
 
   @impl true
-  def deliver_magic_link(_user, magic_token, _opts) do
+  def deliver_magic_link(_usr, magic_token, _opts) do
     require Logger
     alias UisrvWeb.Endpoint
     import UisrvWeb.Router.Helpers
-
+    Logger.debug("Endpoint : #{inspect(Endpoint.static_url)}")
+    Logger.debug("Endpoint : #{inspect(Endpoint.host)}")
     Logger.info("""
 
     Typically, we'd send an email here, but for the purposes of this

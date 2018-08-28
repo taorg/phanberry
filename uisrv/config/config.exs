@@ -4,12 +4,6 @@
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
 use Mix.Config
-config :uisrv, Uisrv.Mailer,
-  adapter: Swoosh.Adapters.Sendgrid,
-  api_key: System.get_env("SEND_GRID_PHANTABERRY_KEY")
-
-config :uisrv, :defaults,
-  wrap_tag: :li
 
 # Configure your database
 config :uisrv, Uisrv.Repo,
@@ -27,11 +21,6 @@ config :uisrv, UisrvWeb.Endpoint,
   render_errors: [view: UisrvWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Uisrv.PubSub, adapter: Phoenix.PubSub.PG2]
 
-# Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:user_id]
-
 # Configures Guardian
 config :uisrv, Uisrv.Auth.Guardian,
   issuer: "uisrv",
@@ -40,6 +29,17 @@ config :uisrv, Uisrv.Auth.Guardian,
     "magic" => {30, :minutes},
     "access" => {1, :days}
   }
+
+config :uisrv, Uisrv.Mailer,
+  adapter: Swoosh.Adapters.Sendgrid,
+  api_key: System.get_env("SEND_GRID_PHANTABERRY_KEY")
+
+config :uisrv, :defaults, wrap_tag: :li
+
+# Configures Elixir's Logger
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:user_id]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

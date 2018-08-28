@@ -27,8 +27,10 @@ defmodule Uisrv.Auth.Guardian do
     import UisrvWeb.Router.Helpers
     Logger.debug("Endpoint : #{inspect(Endpoint.static_url())}")
     Logger.debug("User : #{inspect(usr)}")
-    Uisrv.Auth.SingInEmail.welcome(usr,auth_url(Endpoint, :callback, magic_token))
-    |> Mailer.deliver
+
+    Uisrv.Auth.SingInEmail.welcome(usr, auth_url(Endpoint, :callback, magic_token))
+    |> Mailer.deliver()
+
     Logger.info("""
 
     Typically, we'd send an email here, but for the purposes of this
@@ -37,7 +39,6 @@ defmodule Uisrv.Auth.Guardian do
         #{auth_url(Endpoint, :callback, magic_token)}
 
     """)
-
   end
 
   @impl true

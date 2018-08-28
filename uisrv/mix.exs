@@ -39,10 +39,12 @@ defmodule Uisrv.Mixfile do
       {:sqlite_ecto2, "~> 2.2"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_active_link, "~> 0.2"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:sans_password, "~> 1.0"},
-      {:guardian_trackable, "~> 0.1"}
+      {:guardian_trackable, "~> 0.1"},
+      {:swoosh, "~> 0.17"}
     ]
   end
 

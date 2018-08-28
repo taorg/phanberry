@@ -46,6 +46,7 @@ defmodule UisrvWeb.AuthController do
 
   def auth_error(conn, error, _opts) do
     Logger.error("Authentication error #{inspect(error)}")
+
     conn
     |> put_flash(:error, "Authentication error.")
     |> redirect(to: auth_path(conn, :new))

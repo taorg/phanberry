@@ -4,6 +4,12 @@
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
 use Mix.Config
+config :uisrv, Uisrv.Mailer,
+  adapter: Swoosh.Adapters.Sendgrid,
+  api_key: System.get_env("SEND_GRID_PHANTABERRY_KEY")
+
+config :uisrv, :defaults,
+  wrap_tag: :li
 
 # Configure your database
 config :uisrv, Uisrv.Repo,

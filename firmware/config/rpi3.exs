@@ -44,6 +44,7 @@ config :uisrv, Uisrv.Repo,
 config :uisrv,
   ecto_repos: [Uisrv.Repo]
 
+#Phoenix Endpoint configuration
 config :uisrv, UisrvWeb.Endpoint,
 #This ip should be a public domain for an internet connected Raspberry
 #For local test we fix our DHCP server to assing this ip to Raspberry's device wlan0
@@ -64,3 +65,11 @@ config :uisrv, Uisrv.Auth.Guardian,
     "magic" => {30, :minutes},
     "access" => {1, :days}
   }
+
+  use Mix.Config
+  config :uisrv, Uisrv.Mailer,
+    adapter: Swoosh.Adapters.Sendgrid,
+    api_key: System.get_env("SEND_GRID_PHANTABERRY_KEY")
+
+  config :uisrv, :defaults,
+    wrap_tag: :li

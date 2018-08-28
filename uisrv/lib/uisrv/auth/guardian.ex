@@ -1,7 +1,7 @@
 defmodule Uisrv.Auth.Guardian do
   use Guardian, otp_app: :uisrv
   use SansPassword
-
+  alias Uisrv.Mailer
   alias Uisrv.Model.Accounts
 
   @impl true
@@ -21,12 +21,14 @@ defmodule Uisrv.Auth.Guardian do
   end
 
   @impl true
-  def deliver_magic_link(_usr, magic_token, _opts) do
+  def deliver_magic_link(usr, magic_token, _opts) do
     require Logger
     alias UisrvWeb.Endpoint
     import UisrvWeb.Router.Helpers
-    Logger.debug("Endpoint : #{inspect(Endpoint.static_url)}")
-    Logger.debug("Endpoint : #{inspect(Endpoint.host)}")
+    Logger.debug("Endpoint : #{inspect(Endpoint.static_url())}")
+    Logger.debug("User : #{inspect(usr)}")
+    Uisrv.Auth.SingInEmail.welcome(usr,auth_url(Endpoint, :callback, magic_token))
+    |> Mailer.deliver
     Logger.info("""
 
     Typically, we'd send an email here, but for the purposes of this
@@ -35,6 +37,7 @@ defmodule Uisrv.Auth.Guardian do
         #{auth_url(Endpoint, :callback, magic_token)}
 
     """)
+
   end
 
   @impl true

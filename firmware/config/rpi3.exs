@@ -25,7 +25,8 @@ config :firmware, interface: :wlan0
 # Nerves.Firmware.SSH An infrastruction to support "over-the-air" firmware updates with Nerves by using ssh
 config :nerves_firmware_ssh,
   authorized_keys: [
-    File.read!(Path.join(System.user_home!(), ".ssh/id_rsa.pub"))
+    File.read!(Path.join(System.user_home!(), ".skm/taorg-rbrr-dev/id_rsa.pub")),
+    File.read!(Path.join(System.user_home!(), ".skm/Mlopezc-rrbp3/id_rsa.pub"))
   ]
 
 # Set a mdns domain and node_name to be able to remsh into the device.

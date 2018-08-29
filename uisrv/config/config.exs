@@ -34,7 +34,7 @@ config :uisrv, Uisrv.Mailer,
   adapter: Swoosh.Adapters.Sendgrid,
   api_key: System.get_env("SEND_GRID_PHANTABERRY_KEY")
 
-config :uisrv, :defaults, wrap_tag: :li
+config :event_bus, topics: [:rpbrr_msg_rx, :phx_msg_rx]
 
 # Configures Elixir's Logger
 config :logger, :console,

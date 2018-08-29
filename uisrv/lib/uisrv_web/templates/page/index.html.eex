@@ -9,8 +9,19 @@
     <%= link "Login", to: auth_path(@conn, :new), class: "btn btn-lg btn-primary" %>
   <% end %>
 </section>
-
-<section>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h5 class="display-5">Login users</h5>
+    <p class="lead">List of users that had introduced its email to login</p>
+  </div>
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Show/Hide
+  </a>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+ 
   <h3 class="page-header">Listing users</h3>
 
   <ul class="list-group">
@@ -20,4 +31,8 @@
       </li>
     <% end %>
   </ul>
-</section>
+
+  </div>
+</div>
+
+</div>

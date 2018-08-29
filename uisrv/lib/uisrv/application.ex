@@ -2,6 +2,7 @@ defmodule Uisrv.Application do
   use Application
   use Ecto.Migration
   require Logger
+  alias Uisrv.Supervisors.Raspberry, as: RaspberrySupervisor
 
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
@@ -18,15 +19,18 @@ defmodule Uisrv.Application do
       # Start the Ecto repository
       supervisor(Uisrv.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(UisrvWeb.Endpoint, [])
+      supervisor(UisrvWeb.Endpoint, []),
       # Start your own worker by calling: Uisrv.Worker.start_link(arg1, arg2, arg3)
       # worker(Uisrv.Worker, [arg1, arg2, arg3]),
+      supervisor(RaspberrySupervisor, [], id: make_ref(), restart: :permanent)
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Uisrv.Supervisor]
-    Supervisor.start_link(children, opts)
+    link = Supervisor.start_link(children, opts)
+    EventBus.subscribe({Uisrv.Workers.Raspberry, [".*"]})
+    link
   end
 
   # Tell Phoenix to update the endpoint configuration

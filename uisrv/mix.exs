@@ -44,7 +44,8 @@ defmodule Uisrv.Mixfile do
       {:cowboy, "~> 1.0"},
       {:sans_password, "~> 1.0"},
       {:guardian_trackable, "~> 0.1"},
-      {:swoosh, "~> 0.17"}
+      {:swoosh, "~> 0.17"},
+      {:event_bus, "~> 1.4"}
     ]
   end
 

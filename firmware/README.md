@@ -1,7 +1,15 @@
-# kkkkfuy
+# Introduction
 
-This is the firmware module, part of Phantaberry project, develop with Nerves framework in Elixir language.
+This is the firmware module, part of Phanberry project,
+develop with Nerves framework in Elixir language.
 It is intended to run on a Raspberry pi3 so `MIX_TARGET=rpi3`
+
+## Very interesting resources
+
+ *[Official Nerves Project documentation](<https://hexdocs.pm/nerves/getting-started.html>)
+ *[Official Nerves Project website](<http://www.nerves-project.org/>)
+ *Discussion Slack elixir-lang **#nerves** ([Invite](<https://elixir-slackin.herokuapp.com/>))
+ *[Source code on Github](<https://github.com/nerves-project/nerves>)
 
 ## Targets
 
@@ -19,11 +27,11 @@ information about targets see:
 
 To start your Nerves app:
 
-* `export MIX_TARGET=my_target` or prefix every command with
+ *`export MIX_TARGET=my_target` or prefix every command with
     `MIX_TARGET=my_target`. For example, `MIX_TARGET=rpi3`
-* Install dependencies with `mix deps.get`
-* Create firmware with `mix firmware`
-* Burn to an SD card with `mix firmware.burn`
+ *Install dependencies with `mix deps.get`
+ *Create firmware with `mix firmware`
+ *Burn to an SD card with `mix firmware.burn`
 
 ## mix release
 
@@ -54,9 +62,10 @@ For a complete listing of commands and their use:
     > _build/rpi3/dev/rel/firmware/bin/firmware help
 ```
 
-## Connet Observer to remote device
+## Connect Observer to remote device
 
-At your localmachine start iex with applicatoin secret coockie locate in /rel/vm.args
+In your local-machine start iex with application secret coockie
+locate in /rel/vm.args
 
 ```bash
 iex --name host@192.168.1.5 \
@@ -73,7 +82,7 @@ In the remote device ssh shell
 iex(firmware@:firmware.local)16> Node.connect(:"host@192.168.1.5")
 ```
 
-At your localmachine again
+At your local-machine again
 
 ```bash
 iex(host@192.168.1.5)3> Node.list
@@ -108,10 +117,3 @@ iex> Logger.info("hello")
 
 14:04:52.516 [info]  hello
 ```
-
-## Learn more
-
-* Official docs: <https://hexdocs.pm/nerves/getting-started.html>
-* Official website: <http://www.nerves-project.org/>
-* Discussion Slack elixir-lang #nerves ([Invite](https://elixir-slackin.herokuapp.com/))
-* Source: <https://github.com/nerves-project/nerves>

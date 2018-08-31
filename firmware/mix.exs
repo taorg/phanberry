@@ -52,8 +52,7 @@ defmodule Firmware.MixProject do
       {:nerves_runtime, "~> 0.6"},
       {:shoehorn, "~> 0.4"},
       {:uisrv, path: "../uisrv"},
-      {:elixir_ale, "~> 0.5"},
-      {:nerves_grove, "~> 0.5.0"}
+      {:elixir_ale, "~> 1.1"}
     ] ++ system(target)
   end
 

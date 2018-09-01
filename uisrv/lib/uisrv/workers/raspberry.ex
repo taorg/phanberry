@@ -25,9 +25,14 @@ defmodule Uisrv.Workers.Raspberry do
   @doc false
   def handle_cast({topic, id}, state) do
     event = EventBus.fetch_event({topic, id})
-    Logger.metadata
-    Logger.debug("#{inspect(topic)}--#{inspect(id)}--#{inspect(state)}--#{inspect(event)}")
-    EventBus.mark_as_completed({EventBus.Logger, topic, id})
+    EventBus.mark_as_completed({__MODULE__, topic, id})
+
+    Logger.debug("topic->#{inspect(topic)}
+      -id->#{inspect(id)}
+      -state->#{inspect(state)}
+      -event->#{inspect(event)}
+      -state->#{inspect(state)}")
+
     {:noreply, state}
   end
 end

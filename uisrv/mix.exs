@@ -46,7 +46,8 @@ defmodule Uisrv.Mixfile do
       {:guardian_trackable, "~> 0.1"},
       {:swoosh, "~> 0.17"},
       {:event_bus, "~> 1.4"},
-      {:elixir_uuid, "~> 1.2", only: [:dev, :test]}
+      {:elixir_uuid, "~> 1.2"},
+      {:faker, "~> 0.10", only: [:dev, :test]}
     ]
   end
 

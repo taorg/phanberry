@@ -76,7 +76,8 @@ defmodule Uisrv.Application do
         migrator.(repo, migrations_path, :up, opts)
       end
 
-    pid && repo.stop(pid)
+    # pid &&
+    repo.stop(pid)
     Mix.Ecto.restart_apps_if_migrated(apps, migrated)
   end
 end

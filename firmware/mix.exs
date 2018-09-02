@@ -53,9 +53,10 @@ defmodule Firmware.MixProject do
       {:shoehorn, "~> 0.4"},
       {:uisrv, path: "../uisrv"},
       {:elixir_ale, "~> 1.1"},
-      {:nerves_grove, github: "Manolets/nerves_grove"},
+      # {:nerves_grove, github: "Manolets/nerves_grove"},
+      {:nerves_grove, path: "../../nerves_grove"},
       {:nerves_dht, git: "https://github.com/visciang/nerves_dht.git", tag: "1.1.4"}
-      ] ++ system(target)
+    ] ++ system(target)
   end
 
   defp system("rpi"), do: [{:nerves_system_rpi, "~> 1.0", runtime: false}]

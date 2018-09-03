@@ -20,6 +20,9 @@ defmodule Firmware.Tests.MotionBuzz do
   end
 
   def start_alarm(pin_buzz, pin_sensor) do
+    {:ok, buzz_pid} = Buzzer.start_link(pin_buzz)
+    {:ok, sensor_pid} = MotionSensor.start_link(pin_sensor)
+
     Task.start(fn ->
       loop(pin_buzz, pin_sensor)
     end)

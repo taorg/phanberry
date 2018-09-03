@@ -17,16 +17,19 @@ config :shoehorn,
   init: [:nerves_runtime, :nerves_init_gadget],
   app: Mix.Project.config()[:app]
 
-# Add the RingLogger backend. This removes the
-# default :console backend.
-config :logger, backends: [RingLogger]
-
-# Set the number of messages to hold in the circular buffer
-config :logger, RingLogger, max_size: 100
-config :logger, level: :debug
-
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 # Uncomment to use target specific configurations
+
+# Set a mdns domain and node_name to be able to remsh into the device.
+config :nerves_init_gadget,
+  ifname: "wlan0",
+  node_name: :firmware,
+  mdns_domain: ":firmware.local",
+  ssh_console_port: 22
+
+
+
+
 
 import_config "#{Mix.Project.config()[:target]}.exs"

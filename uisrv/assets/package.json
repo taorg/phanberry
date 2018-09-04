@@ -21,6 +21,7 @@
         "copycat-brunch": "~>1.1.0",
         "sass-brunch": "~>2.10.4",
         "uglify-js-brunch": "~>2.10.0",
-        "growl": "~>1.10.5"
+        "growl": "~>1.10.5",
+        "node-growl": "~0.1.1"
     }
 }

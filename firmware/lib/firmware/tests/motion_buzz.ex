@@ -2,19 +2,23 @@ defmodule Firmware.Tests.MotionBuzz do
   alias Nerves.Grove.Sensor.MotionSensor
   alias Nerves.Grove.Buzzer
 
-  @type input(buzz_pid, sensor_pid, pin_buzz, pin_sensor) :: [{buzz_pid, sensor_pid, pin_buzz, pin_sensor}]
+  @type input(buzz_pid, sensor_pid, pin_buzz, pin_sensor) :: [
+          {buzz_pid, sensor_pid, pin_buzz, pin_sensor}
+        ]
   def start_alarm(pin_buzz, pin_sensor) do
     {:ok, buzz_pid} = Buzzer.start_link(pin_buzz)
     {:ok, sensor_pid} = MotionSensor.start_link(pin_sensor)
     input = {buzz_pid, sensor_pid, pin_buzz, pin_sensor}
-    self = Task.start(fn ->
-      loop(input)
-    end)
+
+    self =
+      Task.start(fn ->
+        loop(input)
+      end)
+
     self
   end
 
   def check_sensor(input) do
-
     if MotionSensor.read(input.sensor_pid) == false do
       Buzzer.beep(input.buzz_pid, 0.25)
     end
@@ -24,7 +28,6 @@ defmodule Firmware.Tests.MotionBuzz do
   def send_stop(pid) do
     send(pid, :stop)
   end
-
 
   @spec stop(pid()) :: pid()
   def stop(pid) do

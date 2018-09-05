@@ -28,8 +28,4 @@ config :nerves_init_gadget,
   mdns_domain: ":firmware.local",
   ssh_console_port: 22
 
-
-
-
-
 import_config "#{Mix.Project.config()[:target]}.exs"

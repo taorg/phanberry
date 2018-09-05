@@ -1,21 +1,23 @@
 defmodule Firmware.Tests.MotionBuzz do
+  require Logger
   alias Nerves.Grove.Sensor.MotionSensor
   alias Nerves.Grove.Buzzer
 
-  @type input(buzz_pid, sensor_pid, pin_buzz, pin_sensor) :: [
+
+  @type input(buzz_pid, sensor_pid, pin_buzz, pin_sensor) ::
           {buzz_pid, sensor_pid, pin_buzz, pin_sensor}
-        ]
+
   def start_alarm(pin_buzz, pin_sensor) do
     {:ok, buzz_pid} = Buzzer.start_link(pin_buzz)
     {:ok, sensor_pid} = MotionSensor.start_link(pin_sensor)
     input = {buzz_pid, sensor_pid, pin_buzz, pin_sensor}
 
-    self =
+    task_pid =
       Task.start(fn ->
         loop(input)
       end)
 
-    self
+    task_pid
   end
 
   def check_sensor(input) do
@@ -31,24 +33,22 @@ defmodule Firmware.Tests.MotionBuzz do
 
   @spec stop(pid()) :: pid()
   def stop(pid) do
-    IO.puts("Shutting down alarm")
+    Logger.debug("Shutting down alarm")
     send(pid, :stop)
     Process.exit(pid, :stop)
   end
 
   def loop(input) do
-    IO.puts("Alarm activated")
     check_sensor(input)
-    # Process.sleep(500)
+    Logger.debug("Alarm activated")
 
     receive do
       :stop ->
-        IO.puts("Stopping...")
-        # Process.sleep(100)
+        Logger.debug("Stopping...")
+        Process.sleep(100)
         exit(:shutdown)
     end
 
     Process.sleep(300)
-    # loop(pin_buzz, pin_sensor)
   end
 end

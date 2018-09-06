@@ -5,7 +5,7 @@ defmodule Firmware.Tests.MotionBuzz do
 
 
   @type input(buzz_pid, sensor_pid, pin_buzz, pin_sensor) ::
-          {buzz_pid, sensor_pid, pin_buzz, pin_sensor}
+          [{buzz_pid, sensor_pid, pin_buzz, pin_sensor}]
 
   def start_alarm(pin_buzz, pin_sensor) do
     {:ok, buzz_pid} = Buzzer.start_link(pin_buzz)

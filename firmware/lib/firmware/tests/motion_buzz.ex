@@ -50,5 +50,7 @@ defmodule Firmware.Tests.MotionBuzz do
     end
 
     Process.sleep(300)
+    loop(input)
+
   end
 end

@@ -24,8 +24,8 @@ config :shoehorn,
 # Set a mdns domain and node_name to be able to remsh into the device.
 config :nerves_init_gadget,
   ifname: "wlan0",
-  node_name: :firmware,
-  mdns_domain: ":firmware.local",
+  node_name: :phanberry1,
+  mdns_domain: ":ptbsl.com",
   ssh_console_port: 22
 
 import_config "#{Mix.Project.config()[:target]}.exs"

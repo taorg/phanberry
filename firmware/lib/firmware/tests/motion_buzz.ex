@@ -4,25 +4,25 @@ defmodule Firmware.Tests.MotionBuzz do
   alias Nerves.Grove.Buzzer
 
 
-  @type input(buzz_pid, sensor_pid, pin_buzz, pin_sensor) ::
-          [{buzz_pid, sensor_pid, pin_buzz, pin_sensor}]
+  @type input(buzz_pid, pin_buzz, pin_sensor) ::
+          [{buzz_pid, pin_buzz, pin_sensor}]
 
   def start_alarm(pin_buzz, pin_sensor) do
     {:ok, buzz_pid} = Buzzer.start_link(pin_buzz)
-    {:ok, sensor_pid} = MotionSensor.start_link(pin_sensor)
-    input = {buzz_pid, sensor_pid, pin_buzz, pin_sensor}
+    #input = {buzz_pid, pin_buzz, pin_sensor}
 
     task_pid =
       Task.start(fn ->
-        loop(input)
+        loop(buzz_pid, pin_sensor)
       end)
 
     task_pid
   end
 
-  def check_sensor(input) do
-    if MotionSensor.read(input.sensor_pid) == false do
-      Buzzer.beep(input.buzz_pid, 0.25)
+  def check_sensor(buzz_pid, pin_sensor) do
+    Logger.debug("Sensor status #{inspect(MotionSensor.read(pin_sensor))}")
+    if MotionSensor.read(pin_sensor) == 1 do
+      Buzzer.beep(buzz_pid, 0.25)
     end
   end
 
@@ -38,8 +38,8 @@ defmodule Firmware.Tests.MotionBuzz do
     Process.exit(pid, :stop)
   end
 
-  def loop(input) do
-    check_sensor(input)
+  def loop(buzz_pid, pin_sensor) do
+    check_sensor(buzz_pid, pin_sensor)
     Logger.debug("Alarm activated")
 
     receive do
@@ -49,8 +49,8 @@ defmodule Firmware.Tests.MotionBuzz do
         exit(:shutdown)
     end
 
-    Process.sleep(300)
-    loop(input)
+    Process.sleep(10)
+    loop(buzz_pid, pin_sensor)
 
   end
 end

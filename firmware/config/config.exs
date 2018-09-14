@@ -24,6 +24,7 @@ config :shoehorn,
 # Set a mdns domain and node_name to be able to remsh into the device.
 config :nerves_init_gadget,
   ifname: "wlan0",
+  address_method: :dhcp,
   node_name: :phanberry1,
   mdns_domain: ":ptbsl.com",
   ssh_console_port: 22

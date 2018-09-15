@@ -40,17 +40,18 @@ defmodule Firmware.Tests.MotionBuzz do
   end
 
   def loop(pin_buzz, pin_sensor) do
-    check_sensor(pin_buzz, pin_sensor)
+
     Logger.debug("Alarm activated")
 
     receive do
       :stop ->
         Logger.debug("Stopping...")
-        Process.sleep(100)
         exit(:shutdown)
+    after
+      300 -> :timeout
     end
 
-    Process.sleep(10)
+    check_sensor(pin_buzz, pin_sensor)
     loop(pin_buzz, pin_sensor)
 
   end

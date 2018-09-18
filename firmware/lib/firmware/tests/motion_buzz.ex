@@ -3,13 +3,10 @@ defmodule Firmware.Tests.MotionBuzz do
   alias Nerves.Grove.Sensor.MotionSensor
   alias Nerves.Grove.Buzzer
 
-
-  @type input(buzz_pid, pin_buzz, pin_sensor) ::
-          [{buzz_pid, pin_buzz, pin_sensor}]
+  @type input(buzz_pid, pin_buzz, pin_sensor) :: [{buzz_pid, pin_buzz, pin_sensor}]
 
   def start_alarm(pin_buzz, pin_sensor) do
-
-    #input = {buzz_pid, pin_buzz, pin_sensor}
+    # input = {buzz_pid, pin_buzz, pin_sensor}
 
     task_pid =
       Task.start(fn ->
@@ -21,6 +18,7 @@ defmodule Firmware.Tests.MotionBuzz do
 
   def check_sensor(pin_buzz, pin_sensor) do
     Logger.debug("Sensor status #{inspect(MotionSensor.read(pin_sensor))}")
+
     if MotionSensor.read(pin_sensor) == true do
       Logger.debug("Movement detected!!")
       Buzzer.beep(pin_buzz, 0.25)
@@ -40,7 +38,6 @@ defmodule Firmware.Tests.MotionBuzz do
   end
 
   def loop(pin_buzz, pin_sensor) do
-
     Logger.debug("Alarm activated")
 
     receive do
@@ -53,6 +50,5 @@ defmodule Firmware.Tests.MotionBuzz do
 
     check_sensor(pin_buzz, pin_sensor)
     loop(pin_buzz, pin_sensor)
-
   end
 end

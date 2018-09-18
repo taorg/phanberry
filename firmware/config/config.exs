@@ -33,7 +33,7 @@ config :nerves_init_gadget,
 # my Raspberry Pi0W. The 4 bit interface requires 6 GPIO pins
 # which are managed by the driver:
 
-config :ex_lcd,
+config :firmware, :ex_lcd,
   lcd: %{
     rs: 22,
     en: 27,

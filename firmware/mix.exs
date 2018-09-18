@@ -31,7 +31,7 @@ defmodule Firmware.MixProject do
     [
       mod: {Firmware.Application, []},
       mod: {Firmware.Network, []},
-      extra_applications: [:logger, :runtime_tools, :ex_lcd]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 

@@ -33,7 +33,7 @@ defmodule Firmware.Application do
 
   def childred(:gpio1602) do
     import Supervisor.Spec, warn: false
-    config = Application.get_env(:hd44780_demo, :lcd)
+    config = Application.get_env(:firmware, :lcd)
     worker(ExLCD, [{ExLCD.GPIO1602, config}])
   end
 end

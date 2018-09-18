@@ -12,8 +12,8 @@ defmodule Firmware.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Firmware.Supervisor]
     Supervisor.start_link(children(@target), opts)
-    opts = [strategy: :one_for_one, name: Firmware.GPIO1602]
-    Supervisor.start_link(childred(:gpio1602), opts)
+    #opts = [strategy: :one_for_one, name: Firmware.GPIO1602]
+    #Supervisor.start_link(childred(:gpio1602), opts)
   end
 
   # List all child processes to be supervised

@@ -53,15 +53,22 @@ defmodule Firmware.MixProject do
       {:shoehorn, "~> 0.4"},
       {:uisrv, path: "../uisrv"},
       {:elixir_ale, "~> 1.1"},
-      {:nerves_grove, github: "Manolets/nerves_grove"},
-      {:nerves_dht, git: "https://github.com/visciang/nerves_dht.git", tag: "1.1.4"}
-      ] ++ system(target)
+      {:pigpiox, "~> 0.1"},
+      # {:nerves_grove, github: "Manolets/nerves_grove"},
+      {:nerves_grove, path: "../../nerves_grove"},
+      {:nerves_dht, git: "https://github.com/visciang/nerves_dht.git", tag: "1.1.4"},
+      {:ex_lcd, path: "../../ex_lcd"}
+    ] ++ system(target)
   end
 
   defp system("rpi"), do: [{:nerves_system_rpi, "~> 1.0", runtime: false}]
   defp system("rpi0"), do: [{:nerves_system_rpi0, "~> 1.0", runtime: false}]
   defp system("rpi2"), do: [{:nerves_system_rpi2, "~> 1.0", runtime: false}]
-  defp system("rpi3"), do: [{:nerves_system_rpi3, "~> 1.0", runtime: false}]
+  defp system("rpi3"), do: [{:nerves_system_rpi3, "~> 1.4.1", runtime: false}]
+
+  defp system("phanberry_rpi3"),
+    do: [{:custom_rpi3, path: "../phanberry_system_rpi3", runtime: false}]
+
   defp system("bbb"), do: [{:nerves_system_bbb, "~> 1.0", runtime: false}]
   defp system("ev3"), do: [{:nerves_system_ev3, "~> 1.0", runtime: false}]
   defp system("x86_64"), do: [{:nerves_system_x86_64, "~> 1.0", runtime: false}]

@@ -10,14 +10,8 @@
     <title>Hello Uisrv!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
-
   <body>
     <%= render "header.html", conn: @conn %>
-
-<!--
-    <%= UisrvWeb.BootstrapHelpers.show_flash_dismiss(@conn) %>
-    <%= UisrvWeb.BootstrapHelpers.show_flash_dismiss(@conn) %>
--->    
       <main role="main"  class="container">
         <div class="jumbotron">
         <%= render @view_module, @view_template, assigns %>
@@ -26,7 +20,7 @@
 
     <footer class="footer">
       <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+        <span class="text-muted">Welcome to Phanberry</span>
       </div>
     </footer>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

@@ -1,6 +1,14 @@
 # Configuration for the Raspberry Pi 3 (target rpi3)
 use Mix.Config
 
+# Add the RingLogger backend. This removes the
+# default :console backend.
+config :logger, backends: [RingLogger]
+
+# Set the number of messages to hold in the circular buffer
+config :logger, RingLogger, max_size: 500
+config :logger, level: :debug
+
 key_mgmt = System.get_env("NERVES_NETWORK_KEY_MGMT") || "WPA-PSK"
 
 config :nerves_network,
@@ -8,6 +16,7 @@ config :nerves_network,
 
 config :nerves_network, :default,
   wlan0: [
+    ipv4_address_method: :dhcp,
     ssid: System.get_env("NERVES_NETWORK_SSID"),
     psk: System.get_env("NERVES_NETWORK_PSK"),
     key_mgmt: String.to_atom(key_mgmt)
@@ -30,13 +39,10 @@ config :nerves_firmware_ssh,
     File.read!(Path.join(System.user_home!(), ".skm/johannrbpi/id_rsa.pub"))
   ]
 
-# Set a mdns domain and node_name to be able to remsh into the device.
-config :nerves_init_gadget,
-  ifname: "wlan0",
-  node_name: :firmware,
-  mdns_domain: ":firmware.local",
-  ssh_console_port: 22
-
+#
+# PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX
+# PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX
+#
 # Configure your database
 config :uisrv, Uisrv.Repo,
   adapter: Sqlite.Ecto2,

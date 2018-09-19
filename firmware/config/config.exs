@@ -14,19 +14,36 @@ config :nerves, :firmware, rootfs_overlay: "rootfs_overlay"
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
 config :shoehorn,
-  init: [:nerves_runtime, :nerves_network],
+  init: [:nerves_runtime, :nerves_init_gadget],
   app: Mix.Project.config()[:app]
-
-# Add the RingLogger backend. This removes the
-# default :console backend.
-config :logger, backends: [RingLogger]
-
-# Set the number of messages to hold in the circular buffer
-config :logger, RingLogger, max_size: 100
-config :logger, level: :debug
 
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 # Uncomment to use target specific configurations
+
+# Set a mdns domain and node_name to be able to remsh into the device.
+config :nerves_init_gadget,
+  ifname: "wlan0",
+  address_method: :dhcp,
+  node_name: :phanberry1,
+  mdns_domain: ":ptbsl.com",
+  ssh_console_port: 22
+
+# Sample HD44780 configuration for a 2x20 display connected to
+# my Raspberry Pi0W. The 4 bit interface requires 6 GPIO pins
+# which are managed by the driver:
+
+config :firmware, :ex_lcd,
+  lcd: %{
+    rs: 22,
+    en: 27,
+    d4: 25,
+    d5: 24,
+    d6: 23,
+    d7: 18,
+    rows: 2,
+    cols: 20,
+    font_5x10: false
+  }
 
 import_config "#{Mix.Project.config()[:target]}.exs"

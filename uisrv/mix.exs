@@ -35,18 +35,19 @@ defmodule Uisrv.Mixfile do
     [
       {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix_ecto, "~> 3.4" },
       {:sqlite_ecto2, "~> 2.2"},
-      {:phoenix_html, "~> 2.10"},
+      {:phoenix_html, "~> 2.12"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_active_link, "~> 0.2"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:sans_password, "~> 1.0"},
       {:guardian_trackable, "~> 0.1"},
-      {:swoosh, "~> 0.17"},
-      {:event_bus, "~> 1.4"},
-      {:elixir_uuid, "~> 1.2", only: [:dev, :test]}
+      {:swoosh, "~> 0.19"},
+      {:event_bus, "~> 1.5"},
+      {:elixir_uuid, "~> 1.2"},
+      {:faker, "~> 0.10", only: [:dev, :test]}
     ]
   end
 

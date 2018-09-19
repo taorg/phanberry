@@ -12,6 +12,8 @@ defmodule Firmware.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Firmware.Supervisor]
     Supervisor.start_link(children(@target), opts)
+    #opts = [strategy: :one_for_one, name: Firmware.GPIO1602]
+    #Supervisor.start_link(childred(:gpio1602), opts)
   end
 
   # List all child processes to be supervised
@@ -27,5 +29,11 @@ defmodule Firmware.Application do
       # Starts a worker by calling: Firmware.Worker.start_link(arg)
       # {Firmware.Worker, arg},
     ]
+  end
+
+  def childred(:gpio1602) do
+    import Supervisor.Spec, warn: false
+    config = Application.get_env(:firmware, :ex_lcd)
+    supervisor(ExLCD, [{ExLCD.GPIO1602, config}])
   end
 end

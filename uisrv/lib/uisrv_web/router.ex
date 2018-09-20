@@ -43,7 +43,7 @@ defmodule UisrvWeb.Router do
   end
 
   pipeline :joystick_layout do
-    plug(:put_layout, {UisrvWeb.Joystick.JoystickView, :layout})
+    plug(:put_layout, {UisrvWeb.Joystick.LayoutView, :layout})
   end
 
   scope "/joystick", UisrvWeb do

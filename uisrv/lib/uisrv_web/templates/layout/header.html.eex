@@ -21,6 +21,10 @@
             <% else %>
               <%= link "Logout", to: auth_path(@conn, :destroy), class: "btn btn-lg btn-primary" %>
             <% end %> 
+             <%= active_link(@conn, to: "/joystick", class_active: "active nav-link", class_inactive: "nav-link", wrap_tag: :li, wrap_tag_opts: [class: "nav-item"]) do %>
+                Joystick
+                <i class="fa fa-bullseye" aria-hidden="true"></i>
+              <% end %> 
           </ul>
 
           <%= if is_autenticated?(@conn) do %>

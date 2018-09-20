@@ -16,7 +16,7 @@ config :uisrv,
 
 # Configures the endpoint
 config :uisrv, UisrvWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "0.0.0.0"],
   secret_key_base: "s+p9jABrjMUuISSfH5VfOC3RR00QM9NQLBzUZ9VLN7IQN52HUjsNuShvsAi5qb1U",
   render_errors: [view: UisrvWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Uisrv.PubSub, adapter: Phoenix.PubSub.PG2]

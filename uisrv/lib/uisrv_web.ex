@@ -30,6 +30,7 @@ defmodule UisrvWeb do
     quote do
       use Phoenix.View,
         root: "lib/uisrv_web/templates",
+        pattern: "**/*",
         namespace: UisrvWeb
 
       # Import convenience functions from controllers

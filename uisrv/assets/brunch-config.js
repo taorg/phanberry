@@ -74,8 +74,10 @@ exports.config = {
         globals: { // Bootstrap JavaScript requires both '$', 'jQuery', and Tether in global scope
             $: 'jquery',
             jQuery: 'jquery',
-            Tether: 'tether',
+            Tether: 'tether', 
             bootstrap: 'bootstrap' // require Bootstrap JavaScript globally too
-        }
+        },    
+    static: [
+        "node_modules/nipplejs/dist/nipplejs.js",]
     }
 };

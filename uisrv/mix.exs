@@ -35,7 +35,7 @@ defmodule Uisrv.Mixfile do
     [
       {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.4" },
+      {:phoenix_ecto, "~> 3.4"},
       {:sqlite_ecto2, "~> 2.2"},
       {:phoenix_html, "~> 2.12"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},

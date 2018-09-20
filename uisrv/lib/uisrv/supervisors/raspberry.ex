@@ -4,7 +4,7 @@ defmodule Uisrv.Supervisors.Raspberry do
   """
 
   use Supervisor
-  alias Uisrv.Workers.Raspberry, as: RaspberryWorker
+  alias Uisrv.Workers.RaspberryConsummer, as: RaspberryWorker
 
   @doc false
   def start_link,

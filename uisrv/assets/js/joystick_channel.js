@@ -15,7 +15,6 @@ else {
     .receive("ok", resp => { console.log("Joined successfully", resp) })
     .receive("error", resp => { console.log("Unable to join", resp) })
 
-  channel.push("new_msg", { body: "KKKKKKKKK" })
 
   //------------------------------------------------------------------------------------
   //  NIPPLE
@@ -96,10 +95,10 @@ else {
   }
 
   function createNipple(evt) {
-    console.log("evt:"+evt)
+    console.log("evt:" + evt)
     var type = typeof evt === 'string' ?
       evt : evt.target.getAttribute('data-type');
-    console.log("type:"+type)
+    console.log("type:" + type)
     if (type == 'exit') return
     if (joystick) {
       joystick.destroy();
@@ -114,7 +113,7 @@ else {
 
   // Print data into elements
   function debug(obj) {
-    channel.push("new_msg", { body: obj })
+    channel.push("new_jstick_chn_obj", { jstick_obj: obj })
     function parseObj(sub, el) {
       for (var i in sub) {
         if (typeof sub[i] === 'object' && el) {
@@ -133,7 +132,7 @@ else {
 
   // Dump data
   function dump(evt) {
-    channel.push("new_msg", { body: evt })
+    channel.push("new_jstick_chn_evnt", { jstick_event: evt })
     setTimeout(function () {
       if (elDump.children.length > 4) {
         elDump.removeChild(elDump.firstChild);

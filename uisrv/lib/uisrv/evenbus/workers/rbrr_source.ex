@@ -1,4 +1,4 @@
-defmodule Uisrv.Workers.RaspberrySource do
+defmodule Uisrv.EventBus.Workers.RaspberrySource do
   use EventBus.EventSource
   import UUID
 

@@ -1,4 +1,4 @@
-defmodule Uisrv.Workers.RaspberryConsummer do
+defmodule Uisrv.EventBus.Workers.RaspberryConsummer do
   use GenServer
   require Logger
 

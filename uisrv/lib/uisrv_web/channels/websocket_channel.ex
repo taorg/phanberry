@@ -10,8 +10,13 @@ defmodule UisrvWeb.WebSocketChannel do
     {:error, %{reason: "unauthorized"}}
   end
 
-  def handle_in("new_msg", %{"body" => body}, socket) do
-    broadcast!(socket, "new_msg", %{body: body})
+  def handle_in("new_jstick_chn_evnt", %{"jstick_event" => evt}, socket) do
+    broadcast!(socket, "new_jstick_chn_evnt", %{jstick_event: evt})
+    {:noreply, socket}
+  end
+
+  def handle_in("new_jstick_chn_obj", %{"jstick_obj" => obj}, socket) do
+    broadcast!(socket, "new_jstick_chn_obj", %{jstick_obj: obj})
     {:noreply, socket}
   end
 end

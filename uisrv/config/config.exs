@@ -35,7 +35,15 @@ config :uisrv, Uisrv.Mailer,
   api_key: System.get_env("SEND_GRID_PHANTABERRY_KEY")
 
 config :event_bus,
-  topics: [:rpbrr_msg_rx, :rpbrr_cmd_rx, :rpbrr_error, :phx_msg_rx, :phx_cmd_tx, :phx_error],
+  topics: [
+    :rpbrr_msg_rx,
+    :rpbrr_cmd_rx,
+    :rpbrr_error,
+    :phx_msg_rx,
+    :phx_cmd_tx,
+    :jstick_tx_event,
+    :jstick_tx_obj
+  ],
   # integer
   ttl: 30_000_000,
   # atom

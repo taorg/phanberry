@@ -1,10 +1,10 @@
-defmodule Uisrv.Supervisors.Raspberry do
+defmodule Uisrv.EventBus.Supervisors.Raspberry do
   @moduledoc """
   A supervisor for Raspberry
   """
 
   use Supervisor
-  alias Uisrv.Workers.RaspberryConsummer, as: RaspberryWorker
+  alias Uisrv.EventBus.Workers.RaspberryConsummer, as: RaspberryWorker
 
   @doc false
   def start_link,

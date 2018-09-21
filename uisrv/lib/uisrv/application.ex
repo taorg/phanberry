@@ -2,7 +2,7 @@ defmodule Uisrv.Application do
   use Application
   use Ecto.Migration
   require Logger
-  alias Uisrv.Supervisors.Raspberry, as: RaspberrySupervisor
+  alias Uisrv.EventBus.Supervisors.Raspberry, as: RaspberrySupervisor
 
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
@@ -27,9 +27,9 @@ defmodule Uisrv.Application do
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Uisrv.Supervisor]
+    opts = [strategy: :one_for_one, name: Uisrv.EventBus.Supervisor]
     link = Supervisor.start_link(children, opts)
-    EventBus.subscribe({Uisrv.Workers.Raspberry, [".*"]})
+    EventBus.subscribe({Uisrv.EventBus.Workers.Raspberry, [".*"]})
     link
   end
 

@@ -9,14 +9,13 @@
   <meta name="author" content="">
   <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   <link rel="stylesheet" href="<%= static_path(@conn, "/css/joystick.css") %>">
-  <title>PHANJOY</title>
-  <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  <title>PHANJOY</title>  
 </head>
 <body>
   <main role="main" >
       <%= render @view_module, @view_template, assigns %>
   </main>
-
 </body>
-<script src="<%= static_path(@conn, "/js/joystick.js") %>"></script>
+<script src="<%= static_path(@conn, "/js/node.js") %>"></script>
+<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 </html>

@@ -1,9 +1,22 @@
-<div id="buttons">       
-  <div data-type="static" class="active button static">static</div>
-  <div data-type="dynamic" class="button dynamic">dynamic</div> 
+<div class="container">
+
+<div id="buttons" class="btn-group" role="group" aria-label="Button group with nested dropdown">
+  <button data-type="static" type="button" class="btn btn-outline-primary static">static</button>
+  <button data-type="dynamic" type="button" class="btn btn-outline-success dynamic">dynamic</button>
+  <a data-type="exit" type="button" class="btn btn-outline-warning static" href="../">exit</a>
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Dropdown
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" href="#">Dropdown link</a>
+      <a class="dropdown-item" href="#">Dropdown link</a>
+    </div>
+  </div>
+</div>
 </div>
 <div id="zone_joystick">
-  <div id="debug">
+  <div id="joystick_debug">
     <ul>
       <li class="position">
         position :
@@ -60,7 +73,6 @@
   <div class="zone dynamic">
     <h1>dynamic</h1>
   </div>
-
 </div>
-<br/>
+
 

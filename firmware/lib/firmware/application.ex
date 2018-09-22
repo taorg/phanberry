@@ -5,6 +5,7 @@ defmodule Firmware.Application do
 
   @target Mix.Project.config()[:target]
   alias Firmware.EventBus.Supervisors.Joystick, as: JoystickSupervisor
+  alias Firmware.EventBus.Workers.JoystickConsummer, as: JoystickListener
   use Application
 
   def start(_type, _args) do
@@ -22,7 +23,7 @@ defmodule Firmware.Application do
     link = Supervisor.start_link(children, opts)
     # opts = [strategy: :one_for_one, name: Firmware.GPIO1602]
     # Supervisor.start_link(childred(:gpio1602), opts)
-    EventBus.subscribe({Firmware.EventBus.Workers.Joystick, [".*"]})
+    EventBus.subscribe({JoystickListener, ["^jstick_tx_event$","^jstick_tx_obj$"]})
     link
   end
 

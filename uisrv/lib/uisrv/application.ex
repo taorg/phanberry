@@ -29,7 +29,7 @@ defmodule Uisrv.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Uisrv.EventBus.Supervisor]
     link = Supervisor.start_link(children, opts)
-    EventBus.subscribe({Uisrv.EventBus.Workers.Raspberry, [".*"]})
+    EventBus.subscribe({Uisrv.EventBus.Workers.Raspberry, ["^rpbrr_msg_tx$","^rpbrr_error$"]})
     link
   end
 

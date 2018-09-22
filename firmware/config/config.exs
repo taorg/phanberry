@@ -49,7 +49,7 @@ config :firmware, :ex_lcd,
 # Event bus topics
 config :event_bus,
   topics: [
-    :rpbrr_msg_rx,
+    :rpbrr_msg_tx,
     :rpbrr_cmd_rx,
     :rpbrr_error,
     :phx_msg_rx,

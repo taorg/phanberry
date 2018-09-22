@@ -4,7 +4,7 @@ defmodule Uisrv.EventBus.Workers.RaspberrySource do
 
   def fake_rapberry(msg, tx_id) do
     id = uuid1()
-    topic = :rpbrr_msg_rx
+    topic = :rpbrr_msg_tx
     # optional
     transaction_id = tx_id
     # optional

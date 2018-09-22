@@ -4,16 +4,26 @@ defmodule Firmware.Application do
   @moduledoc false
 
   @target Mix.Project.config()[:target]
-
+  alias Firmware.EventBus.Supervisors.Joystick, as: JoystickSupervisor
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
+    # Start your own worker by calling: Firmware.Worker.start_link(arg1, arg2, arg3)
+    children =
+      [
+        # worker(Firmware.Worker, [arg1, arg2, arg3]),
+        supervisor(JoystickSupervisor, [], id: make_ref(), restart: :permanent)
+      ] ++ children(@target)
+
     opts = [strategy: :one_for_one, name: Firmware.Supervisor]
-    Supervisor.start_link(children(@target), opts)
+    link = Supervisor.start_link(children, opts)
     # opts = [strategy: :one_for_one, name: Firmware.GPIO1602]
     # Supervisor.start_link(childred(:gpio1602), opts)
+    EventBus.subscribe({Firmware.EventBus.Workers.Joystick, [".*"]})
+    link
   end
 
   # List all child processes to be supervised

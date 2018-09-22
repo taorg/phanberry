@@ -46,8 +46,8 @@ config :firmware, :ex_lcd,
     font_5x10: false
   }
 
-  # Event bus topics
-  config :event_bus,
+# Event bus topics
+config :event_bus,
   topics: [
     :rpbrr_msg_rx,
     :rpbrr_cmd_rx,
@@ -61,4 +61,5 @@ config :firmware, :ex_lcd,
   ttl: 30_000_000,
   # atom
   time_unit: :microsecond
+
 import_config "#{Mix.Project.config()[:target]}.exs"

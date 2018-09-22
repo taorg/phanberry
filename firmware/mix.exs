@@ -43,7 +43,7 @@ defmodule Firmware.MixProject do
   end
 
   # Specify target specific dependencies
-  defp deps("host"), do: []
+  defp deps("host"), do: [{:event_bus, "~> 1.5"}, {:elixir_uuid, "~> 1.2"}]
 
   defp deps(target) do
     [
@@ -52,6 +52,8 @@ defmodule Firmware.MixProject do
       {:nerves_runtime, "~> 0.6"},
       {:shoehorn, "~> 0.4"},
       {:uisrv, path: "../uisrv"},
+      {:event_bus, "~> 1.5"},
+      {:elixir_uuid, "~> 1.2"},
       {:elixir_ale, "~> 1.1"},
       {:pigpiox, "~> 0.1"},
       # {:nerves_grove, github: "Manolets/nerves_grove"},

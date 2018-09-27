@@ -49,7 +49,7 @@ defmodule Firmware.MixProject do
     [
       {:nerves_init_gadget, "~> 0.5"},
       {:nerves_firmware_ssh, "~> 0.3"},
-      {:nerves_runtime, "~> 0.6"},
+      {:nerves_runtime, "~> 0.7"},
       {:shoehorn, "~> 0.4"},
       {:uisrv, path: "../uisrv"},
       {:event_bus, "~> 1.5"},

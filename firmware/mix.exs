@@ -55,11 +55,11 @@ defmodule Firmware.MixProject do
       {:event_bus, "~> 1.5"},
       {:elixir_uuid, "~> 1.2"},
       {:elixir_ale, "~> 1.1"},
-      {:pigpiox, "~> 0.1"},
+      {:pigpiox, path: "../../pigpiox"},
       # {:nerves_grove, github: "Manolets/nerves_grove"},
       {:nerves_grove, path: "../../nerves_grove"},
       {:nerves_dht, git: "https://github.com/visciang/nerves_dht.git", tag: "1.1.4"},
-      {:ex_lcd, path: "../../ex_lcd"}
+      #{:ex_lcd, path: "../../ex_lcd"}
     ] ++ system(target)
   end
 

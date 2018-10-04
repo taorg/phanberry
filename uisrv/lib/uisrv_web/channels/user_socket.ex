@@ -2,7 +2,7 @@ defmodule UisrvWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", UisrvWeb.RoomChannel
+  channel("wschannel:*", UisrvWeb.WebSocketChannel)
 
   ## Transports
   transport(:websocket, Phoenix.Transports.WebSocket)

@@ -42,6 +42,15 @@ defmodule UisrvWeb.Router do
     get("/secret", PageController, :secret)
   end
 
+  pipeline :joystick_layout do
+    plug(:put_layout, {UisrvWeb.Joystick.LayoutView, :layout})
+  end
+
+  scope "/joystick", UisrvWeb do
+    pipe_through([:joystick_layout, :browser])
+    get("/", Joystick.JoystickController, :index)
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", UisrvWeb do
   #   pipe_through :api

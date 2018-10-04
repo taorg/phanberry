@@ -2,8 +2,10 @@ exports.config = {
     // See http://brunch.io/#documentation for docs.
     files: {
         javascripts: {
-            joinTo: "js/app.js"
-
+            joinTo: {
+                "js/app.js": /^(js)/,
+                "js/node.js": /(node_modules)/,
+            },
             // To use a separate vendor.js bundle, specify two files path
             // https://github.com/brunch/brunch/blob/master/docs/config.md#files
             // joinTo: {
@@ -50,7 +52,7 @@ exports.config = {
     plugins: {
         babel: {
             // Do not use ES6 compiler in vendor code
-            ignore: [/vendor/]
+            ignore: [/node_modules|vendor/]
         },
         copycat: {
             "fonts": ["node_modules/font-awesome/fonts"] // copy node_modules/font-awesome/fonts/* to priv/static/fonts/
@@ -76,6 +78,8 @@ exports.config = {
             jQuery: 'jquery',
             Tether: 'tether',
             bootstrap: 'bootstrap' // require Bootstrap JavaScript globally too
-        }
+        },
+        static: [
+            "node_modules/nipplejs/dist/nipplejs.js",]
     }
 };

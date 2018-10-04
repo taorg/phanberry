@@ -16,7 +16,7 @@ config :uisrv,
 
 # Configures the endpoint
 config :uisrv, UisrvWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "0.0.0.0"],
   secret_key_base: "s+p9jABrjMUuISSfH5VfOC3RR00QM9NQLBzUZ9VLN7IQN52HUjsNuShvsAi5qb1U",
   render_errors: [view: UisrvWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Uisrv.PubSub, adapter: Phoenix.PubSub.PG2]
@@ -35,7 +35,15 @@ config :uisrv, Uisrv.Mailer,
   api_key: System.get_env("SEND_GRID_PHANTABERRY_KEY")
 
 config :event_bus,
-  topics: [:rpbrr_msg_rx, :rpbrr_cmd_rx, :rpbrr_error, :phx_msg_rx, :phx_cmd_tx, :phx_error],
+  topics: [
+    :rpbrr_msg_rx,
+    :rpbrr_cmd_rx,
+    :rpbrr_error,
+    :phx_msg_rx,
+    :phx_cmd_tx,
+    :jstick_tx_event,
+    :jstick_tx_obj
+  ],
   # integer
   ttl: 30_000_000,
   # atom

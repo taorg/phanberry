@@ -1,10 +1,10 @@
-defmodule Uisrv.Supervisors.Raspberry do
+defmodule Firmware.EventBus.Supervisors.Joystick do
   @moduledoc """
-  A supervisor for Raspberry
+  A supervisor for Joystick
   """
 
   use Supervisor
-  alias Uisrv.Workers.Raspberry, as: RaspberryWorker
+  alias Firmware.EventBus.Workers.JoystickConsummer, as: JoystickWorker
 
   @doc false
   def start_link,
@@ -13,7 +13,7 @@ defmodule Uisrv.Supervisors.Raspberry do
   @doc false
   def init([]) do
     children = [
-      worker(RaspberryWorker, [], id: make_ref(), restart: :permanent)
+      worker(JoystickWorker, [], id: make_ref(), restart: :permanent)
     ]
 
     opts = [strategy: :one_for_one, name: __MODULE__]

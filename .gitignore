@@ -3,3 +3,4 @@
 /uisrv_1.3
 *.iml
 uisrv_test*
+*/.idea/*

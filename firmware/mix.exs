@@ -9,7 +9,7 @@ defmodule Firmware.MixProject do
       version: "0.1.0",
       elixir: "~> 1.6",
       target: @target,
-      archives: [nerves_bootstrap: "~> 1.0"],
+      archives: [nerves_bootstrap: "~> 1.3.1"],
       deps_path: "deps/#{@target}",
       build_path: "_build/#{@target}",
       lockfile: "mix.lock.#{@target}",

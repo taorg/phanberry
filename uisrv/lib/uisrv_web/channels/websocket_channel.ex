@@ -13,14 +13,14 @@ defmodule UisrvWeb.WebSocketChannel do
   end
 
   def handle_in("new_jstick_chn_evnt", %{"jstick_event" => evt}, socket) do
-    broadcast!(socket, "new_jstick_chn_evnt", %{jstick_event: evt})
+    joystic_source(%{jstick_event: evt})
+    |>EventBus.notify()
     {:noreply, socket}
   end
 
   def handle_in("new_jstick_chn_obj", %{"jstick_obj" => obj}, socket) do
     joystic_source(%{jstick_obj: obj})
     |>EventBus.notify()
-    #broadcast!(socket, "new_jstick_chn_obj", %{jstick_obj: obj})
     {:noreply, socket}
   end
 

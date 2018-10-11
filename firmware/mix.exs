@@ -58,8 +58,8 @@ defmodule Firmware.MixProject do
       {:pigpiox, path: "../../pigpiox"},
       # {:nerves_grove, github: "Manolets/nerves_grove"},
       {:nerves_grove, path: "../../nerves_grove"},
-      {:nerves_dht, git: "https://github.com/visciang/nerves_dht.git", tag: "1.1.4"},
-      #{:ex_lcd, path: "../../ex_lcd"}
+      {:nerves_dht, git: "https://github.com/visciang/nerves_dht.git", tag: "1.1.4"}
+      # {:ex_lcd, path: "../../ex_lcd"}
     ] ++ system(target)
   end
 
@@ -68,8 +68,8 @@ defmodule Firmware.MixProject do
   defp system("rpi2"), do: [{:nerves_system_rpi2, "~> 1.0", runtime: false}]
   defp system("rpi3"), do: [{:nerves_system_rpi3, "~> 1.5.0", runtime: false}]
 
- # defp system("phanberry_rpi3"),
- #   do: [{:custom_rpi3, path: "../phanberry_system_rpi3", runtime: false}]
+  # defp system("phanberry_rpi3"),
+  #   do: [{:custom_rpi3, path: "../phanberry_system_rpi3", runtime: false}]
 
   defp system("bbb"), do: [{:nerves_system_bbb, "~> 1.0", runtime: false}]
   defp system("ev3"), do: [{:nerves_system_ev3, "~> 1.0", runtime: false}]

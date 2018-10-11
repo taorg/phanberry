@@ -29,8 +29,6 @@ config :nerves_init_gadget,
   mdns_domain: ":ptbsl.com",
   ssh_console_port: 22
 
-
-
 # Event bus topics
 config :event_bus,
   topics: [

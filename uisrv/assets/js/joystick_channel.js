@@ -9,13 +9,34 @@ else {
   // Now that you are connected, you can join channels with a topic:
   let channel = socket.channel("wschannel:joystick", {})
 
-
-
   channel.join()
     .receive("ok", resp => { console.log("Joined successfully", resp) })
     .receive("error", resp => { console.log("Unable to join", resp) })
+  //------------------------------------------------------------------------------------
+  //  RESOLUTION
+  //------------------------------------------------------------------------------------
+  function updateMyScreenResolution(){
+    /** const swidth = window.screen.width;
+    const sheight = window.screen.height;
+    const resolution = swidth+' x '+sheight;
+    const vwidth = window.innerWidth;
+    const vheight = window.innerHeight;
+    const bresolution = vwidth+' x '+vheight; */
+    var wsize = ((window.innerWidth < window.innerWidth) ? window.innerHeight/3 : window.innerWidth/3)
+    const dsize = ((wsize < 300) ? wsize : 400)
+    console.log('wsize:'+wsize)
+    console.log('dsize:'+dsize)
+    return dsize
+  }
+  
+  updateMyScreenResolution();
+  
+  window.addEventListener('resize', () => {
+    updateMyScreenResolution();
 
-
+  sId('buttons').onclick = createNipple;
+  createNipple('static');
+  });
   //------------------------------------------------------------------------------------
   //  NIPPLE
   //------------------------------------------------------------------------------------
@@ -30,12 +51,17 @@ else {
       el.className = el.className.replace(new RegExp('\\b' + clss + ' ?\\b', 'g'), '');
     }
   }
+
+
   var joysticks = {
     dynamic: {
       zone: s('.zone.dynamic'),
+      mode: 'dynamic',
       color: '#1e7e34',
       multitouch: true,
-      size: 300
+      size: updateMyScreenResolution(),
+      restJoystick: true,
+      restOpacity: 7
     },
 
     static: {
@@ -43,10 +69,13 @@ else {
       mode: 'static',
       position: {
         left: '50%',
-        top: '50%'
+        top: '20%'
       },
+      multitouch: true,
       color: '#0062cc',
-      size: 300
+      size: updateMyScreenResolution(),
+      restJoystick: true,
+      restOpacity: 7
     }
   };
   var joystick;
@@ -95,10 +124,8 @@ else {
   }
 
   function createNipple(evt) {
-    console.log("evt:" + evt)
     var type = typeof evt === 'string' ?
       evt : evt.target.getAttribute('data-type');
-    console.log("type:" + type)
     if (type == 'exit') return
     if (joystick) {
       joystick.destroy();

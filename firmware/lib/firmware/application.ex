@@ -23,7 +23,7 @@ defmodule Firmware.Application do
     link = Supervisor.start_link(children, opts)
     # opts = [strategy: :one_for_one, name: Firmware.GPIO1602]
     # Supervisor.start_link(childred(:gpio1602), opts)
-    EventBus.subscribe({JoystickListener, ["^jstick_tx_event$","^jstick_tx_obj$"]})
+    EventBus.subscribe({JoystickListener, ["^jstick_tx_event$", "^jstick_tx_obj$"]})
     link
   end
 

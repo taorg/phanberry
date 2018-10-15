@@ -51,16 +51,46 @@ defmodule Firmware.Cuadruped.Movements do
           @bl ->
             move_leg(handle, leg, :fw)
         end
+
+        :rt ->
+          case leg do
+            @fr ->
+              move_leg(handle, leg, :fw)
+
+            @br ->
+              move_leg(handle, leg, :bw)
+
+            @fl ->
+              move_leg(handle, leg, :fw)
+
+            @bl ->
+              move_leg(handle, leg, :bw)
+          end
+
+          :lft ->
+            case leg do
+              @fr ->
+                move_leg(handle, leg, :bw)
+
+              @br ->
+                move_leg(handle, leg, :fw)
+
+              @fl ->
+                move_leg(handle, leg, :bw)
+
+              @bl ->
+                move_leg(handle, leg, :fw)
+            end
     end
 
     Process.sleep(@move_sleep)
     drop_leg(handle, leg)
+    Process.sleep(@sleep)
   end
 
   def move(handle, dir) do
     for n <- [@fr, @br, @fl, @bl] do
       leg_step(handle, n, dir)
-      Process.sleep(@move_sleep)
     end
 
     initial(handle)
@@ -84,7 +114,7 @@ defmodule Firmware.Cuadruped.Movements do
 
   def turn(handle, dir) do
     case dir do
-      :lft ->
+      :cl ->
         for n <- [@fr, @br, @bl, @fl] do
           lift_leg(handle, n)
           Process.sleep(@move_sleep)
@@ -96,7 +126,7 @@ defmodule Firmware.Cuadruped.Movements do
 
         initial(handle)
 
-      :rt ->
+      :anti ->
         for n <- [@fr, @br, @bl, @fl] do
           lift_leg(handle, n)
           Process.sleep(@move_sleep)

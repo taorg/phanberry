@@ -14,11 +14,11 @@ use Mix.Releases.Config,
 # and environment configuration is called a profile
 
 environment :dev do
-  set cookie: :"]G~h7M?HRw~=1JumP|De,Ib|L0jREF4dC:>V]?3bQU{W=%SkP/2t}|>$1LD|)bk;"
+  set(cookie: :"Unused with Nerves. See vm.args")
 end
 
 environment :prod do
-  set cookie: :"]G~h7M?HRw~=1JumP|De,Ib|L0jREF4dC:>V]?3bQU{W=%SkP/2t}|>$1LD|)bk;"
+  set(cookie: :"Unused with Nerves. See vm.args")
 end
 
 # You may define one or more releases in this file.
@@ -28,7 +28,7 @@ end
 
 release :firmware do
   set version: current_version(:firmware)
-  plugin Nerves
-  plugin Shoehorn
+  plugin(Nerves)
+  plugin(Shoehorn)
 end
 

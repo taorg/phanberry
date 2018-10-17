@@ -1,6 +1,6 @@
 defmodule Firmware.Cuadruped.Positions do
   require Logger
-  alias Nerves.Grove.PCA9685.Device
+  alias Nerves.Grove.PCA9685.{Servo,Tetrapod}
 
   @moduledoc """
   This module will set some leg positions so they can be combined later in the Firmware.Cuadruped.Movements
@@ -8,17 +8,17 @@ defmodule Firmware.Cuadruped.Positions do
   alias Firmware.Cuadruped.Positions
 
   """
-  @fr %{b: 0, h: 1, k: 2}
+  @fr %{b: :frb, h: :frh, k: :frk}
 
-  @br %{b: 3, h: 4, k: 5}
+  @br %{b: :brb, h: :brh, k: :brk}
 
-  @bl %{b: 6, h: 7, k: 8}
+  @bl %{b: :blb, h: :blh, k: :blk}
 
-  @fl %{b: 9, h: 10, k: 11}
+  @fl %{b: :flb, h: :flh, k: :flk}
 
-  @bs [0, 3, 6, 9]
-  @hs [1, 4, 7, 10]
-  @ks [2, 5, 8, 11]
+  @bs [:frb, :brb, :blb, :flb]
+  @hs [:frh, :brh, :blh, :flh]
+  @ks [:frk, :brk, :blk, :flk]
 
   @sleep 5
 
@@ -26,46 +26,40 @@ defmodule Firmware.Cuadruped.Positions do
   The pins for the servos are set here, e.g.: frb = front right body
   """
 
-  def initial(handle) do
+  def initial() do
     for n <- @bs do
-      Device.set_servo(handle, n, 90)
+      Servo.position(Tetrapod.limb_id(n), 90)
       Process.sleep(@sleep)
     end
 
     for n <- @hs do
-      Device.set_servo(handle, n, 45)
+      Servo.position(Tetrapod.limb_id(n), 45)
       Process.sleep(@sleep)
     end
 
     for n <- @ks do
-      Device.set_servo(handle, n, 90)
+      Servo.position(Tetrapod.limb_id(n), 90)
       Process.sleep(@sleep)
     end
   end
 
-  def lift_leg(handle, leg) do
-    Device.set_servo(handle, leg.h, 90)
+  def lift_leg(leg) do
+    Servo.position(Tetrapod.limb_id(leg.h), 90)
   end
 
-  def drop_leg(handle, leg) do
-    Device.set_servo(handle, leg.h, 45)
+  def drop_leg(leg) do
+    Servo.position(Tetrapod.limb_id(leg.h), 45)
   end
 
-  def move_knee(handle, leg, angle) do
-    Device.set_servo(handle, leg.k, angle)
+  def move_knee(leg, angle) do
+    Servo.position(Tetrapod.limb_id(leg.k), angle)
   end
 
-  def move_leg(handle, leg, dir) do
-    case dir do
-      :fw ->
-        Device.set_servo(handle, leg.b, 180)
-
-      :bw ->
-        Device.set_servo(handle, leg.b, 0)
-    end
+  def move_leg(leg, angle) do
+    Servo.position(Tetrapod.limb_id(leg.b), angle)
   end
 
-  def y_body(handle, dir, angle) do
+  def y_body(dir, angle) do
     case dir do
       :up ->
         angle = angle + 10
@@ -75,7 +69,7 @@ defmodule Firmware.Cuadruped.Positions do
     end
 
     for n <- @hs do
-      Device.set_servo(handle, n, angle)
+      Servo.position(Tetrapod.limb_id(n), angle)
       Process.sleep(@sleep)
     end
   end

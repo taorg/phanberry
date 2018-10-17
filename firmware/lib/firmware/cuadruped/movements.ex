@@ -2,141 +2,394 @@ defmodule Firmware.Cuadruped.Movements do
   require Logger
   import Firmware.Cuadruped.Positions
 
-  @fr %{b: 0, h: 1, k: 2}
+  @fr %{b: :frb, h: :frh, k: :frk}
 
-  @br %{b: 3, h: 4, k: 5}
+  @br %{b: :brb, h: :brh, k: :brk}
 
-  @bl %{b: 6, h: 7, k: 8}
+  @bl %{b: :blb, h: :blh, k: :blk}
 
-  @fl %{b: 9, h: 10, k: 11}
+  @fl %{b: :flb, h: :flh, k: :flk}
 
-  @bs [0, 3, 6, 9]
-  @hs [1, 4, 7, 10]
-  @ks [2, 5, 8, 11]
+  @bs [:frb, :brb, :blb, :flb]
+  @hs [:frh, :brh, :blh, :flh]
+  @ks [:frk, :brk, :blk, :flk]
 
   @sleep 5
   @move_sleep 500
-
-  def leg_step(handle, leg, dir) do
-    lift_leg(handle, leg)
+  ######################################
+  ######################################
+  #funs to step forward
+  def step_left_fw() do
+    lift_leg(@bl)
+    Process.sleep(@sleep)
+    move_leg(@bl, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@bl)
     Process.sleep(@move_sleep)
 
+    lift_leg(@fl)
+    Process.sleep(@sleep)
+    move_leg(@fr, 125)
+    Process.sleep(@sleep)
+    move_leg(@br, 125)
+    Process.sleep(@sleep)
+    move_leg(@bl, 90)
+    Process.sleep(@move_sleep)
+
+    move_leg(@fl, 125)
+    Process.sleep(@move_sleep)
+    drop_leg(@fl)
+    Process.sleep(@sleep)
+  end
+
+  def step_right_fw() do
+    lift_leg(@br)
+    Process.sleep(@sleep)
+    move_leg(@br, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@br)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@fr)
+    Process.sleep(@sleep)
+    move_leg(@fl, 125)
+    Process.sleep(@sleep)
+    move_leg(@bl, 125)
+    Process.sleep(@sleep)
+    move_leg(@br, 90)
+    Process.sleep(@move_sleep)
+
+    move_leg(@fr, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@fr)
+    Process.sleep(@sleep)
+  end
+  #//////////////////////////////////////
+  #funs to step backwards
+  def step_left_bw() do
+    lift_leg(@fl)
+    Process.sleep(@sleep)
+    move_leg(@fl, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@fl)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@bl)
+    Process.sleep(@sleep)
+    move_leg(@br, 125)
+    Process.sleep(@sleep)
+    move_leg(@fr, 125)
+    Process.sleep(@sleep)
+    move_leg(@fl, 90)
+    Process.sleep(@move_sleep)
+
+    move_leg(@bl, 125)
+    Process.sleep(@move_sleep)
+    drop_leg(@bl)
+    Process.sleep(@sleep)
+  end
+
+  def step_right_bw() do
+    lift_leg(@fr)
+    Process.sleep(@sleep)
+    move_leg(@fr, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@fr)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@br)
+    Process.sleep(@sleep)
+    move_leg(@bl, 125)
+    Process.sleep(@sleep)
+    move_leg(@fl, 125)
+    Process.sleep(@sleep)
+    move_leg(@fr, 90)
+    Process.sleep(@move_sleep)
+
+    move_leg(@br, 125)
+    Process.sleep(@move_sleep)
+    drop_leg(@br)
+    Process.sleep(@sleep)
+  end
+  #//////////////////////////////////////
+  #funs to step to the left
+  def step_back_lft() do
+    lift_leg(@br)
+    Process.sleep(@sleep)
+    move_leg(@br, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@br)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@bl)
+    Process.sleep(@sleep)
+    move_leg(@fl, 125)
+    Process.sleep(@sleep)
+    move_leg(@fr, 125)
+    Process.sleep(@sleep)
+    move_leg(@br, 90)
+    Process.sleep(@move_sleep)
+
+    move_leg(@bl, 125)
+    Process.sleep(@move_sleep)
+    drop_leg(@bl)
+    Process.sleep(@sleep)
+  end
+
+  def step_front_lft() do
+    lift_leg(@fr)
+    Process.sleep(@sleep)
+    move_leg(@fr, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@fr)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@fl)
+    Process.sleep(@sleep)
+    move_leg(@bl, 125)
+    Process.sleep(@sleep)
+    move_leg(@br, 125)
+    Process.sleep(@sleep)
+    move_leg(@fr, 90)
+    Process.sleep(@move_sleep)
+
+    move_leg(@fl, 125)
+    Process.sleep(@move_sleep)
+    drop_leg(@fl)
+    Process.sleep(@sleep)
+  end
+  #//////////////////////////////////////
+  #funs to step to the right
+  def step_back_rt() do
+    lift_leg(@bl)
+    Process.sleep(@sleep)
+    move_leg(@bl, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@bl)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@br)
+    Process.sleep(@sleep)
+    move_leg(@fl, 125)
+    Process.sleep(@sleep)
+    move_leg(@fr, 125)
+    Process.sleep(@sleep)
+    move_leg(@bl, 90)
+    Process.sleep(@move_sleep)
+
+    move_leg(@br, 125)
+    Process.sleep(@move_sleep)
+    drop_leg(@br)
+    Process.sleep(@sleep)
+  end
+
+  def step_front_rt() do
+    lift_leg(@fl)
+    Process.sleep(@sleep)
+    move_leg(@fl, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@fl)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@fr)
+    Process.sleep(@sleep)
+    move_leg(@bl, 125)
+    Process.sleep(@sleep)
+    move_leg(@br, 125)
+    Process.sleep(@sleep)
+    move_leg(@fl, 90)
+    Process.sleep(@move_sleep)
+
+    move_leg(@fr, 125)
+    Process.sleep(@move_sleep)
+    drop_leg(@fr)
+    Process.sleep(@sleep)
+  end
+  ######################################
+  ######################################
+
+  def move(dir) do
     case dir do
-      :bw ->
-        case leg do
-          @fr ->
-            move_leg(handle, leg, :fw)
-
-          @br ->
-            move_leg(handle, leg, :fw)
-
-          @fl ->
-            move_leg(handle, leg, :bw)
-
-          @bl ->
-            move_leg(handle, leg, :bw)
-        end
-
       :fw ->
-        case leg do
-          @fr ->
-            move_leg(handle, leg, :bw)
-
-          @br ->
-            move_leg(handle, leg, :bw)
-
-          @fl ->
-            move_leg(handle, leg, :fw)
-
-          @bl ->
-            move_leg(handle, leg, :fw)
-        end
-
-        :rt ->
-          case leg do
-            @fr ->
-              move_leg(handle, leg, :fw)
-
-            @br ->
-              move_leg(handle, leg, :bw)
-
-            @fl ->
-              move_leg(handle, leg, :fw)
-
-            @bl ->
-              move_leg(handle, leg, :bw)
-          end
-
-          :lft ->
-            case leg do
-              @fr ->
-                move_leg(handle, leg, :bw)
-
-              @br ->
-                move_leg(handle, leg, :fw)
-
-              @fl ->
-                move_leg(handle, leg, :bw)
-
-              @bl ->
-                move_leg(handle, leg, :fw)
-            end
+        step_left_fw()
+        step_right_fw()
+      :bw ->
+        step_left_bw()
+        step_right_bw()
+      :lft ->
+        step_back_lft()
+        step_front_lft()
+      :rt ->
+        step_back_rt()
+        step_front_rt()
     end
+  end
 
+  def run_frl() do
+    lift_leg(@fr)
+    Process.sleep(@sleep)
+    lift_leg(@bl)
+    Process.sleep(@sleep)
+
+    move_leg(@br, 45)
+    Process.sleep(@sleep)
+    move_leg(@fl, 45)
+    Process.sleep(@sleep)
+
+    move_leg(@fr, 45)
+    Process.sleep(@sleep)
+    move_leg(@bl, 45)
     Process.sleep(@move_sleep)
-    drop_leg(handle, leg)
+
+    drop_leg(@fr)
+    Process.sleep(@sleep)
+    drop_leg(@bl)
     Process.sleep(@sleep)
   end
 
-  def move(handle, dir) do
-    for n <- [@fr, @br, @fl, @bl] do
-      leg_step(handle, n, dir)
+  def run_fll() do
+    lift_leg(@fl)
+    Process.sleep(@sleep)
+    lift_leg(@br)
+    Process.sleep(@sleep)
+
+    move_leg(@bl, 45)
+    Process.sleep(@sleep)
+    move_leg(@fr, 45)
+    Process.sleep(@sleep)
+
+    move_leg(@fl, 45)
+    Process.sleep(@sleep)
+    move_leg(@br, 45)
+    Process.sleep(@move_sleep)
+
+    drop_leg(@fl)
+    Process.sleep(@sleep)
+    drop_leg(@br)
+    Process.sleep(@sleep)
+  end
+
+  def run() do
+    run_frl()
+    run_fll
+  end
+
+  ######################################
+  ######################################
+  #Funs to turn clockwise
+  def turn_cl_frl() do
+    lift_leg(@fr)
+    Process.sleep(@sleep)
+    lift_leg(@bl)
+    Process.sleep(@move_sleep)
+
+    move_leg(@fl, 45)
+    Process.sleep(@sleep)
+    move_leg(@br, 45)
+    Process.sleep(@sleep)
+    move_leg(@fr, 125)
+    Process.sleep(@sleep)
+    move_leg(@bl, 125)
+    Process.sleep(@move_sleep)
+
+    drop_leg(@fr)
+    Process.sleep(@sleep)
+    drop_leg(@bl)
+    Process.sleep(@move_sleep)
+  end
+
+  def turn_cl_fll() do
+    lift_leg(@fl)
+    Process.sleep(@sleep)
+    lift_leg(@br)
+    Process.sleep(@move_sleep)
+
+    move_leg(@fr, 45)
+    Process.sleep(@sleep)
+    move_leg(@bl, 45)
+    Process.sleep(@sleep)
+    move_leg(@fl, 125)
+    Process.sleep(@sleep)
+    move_leg(@br, 125)
+    Process.sleep(@move_sleep)
+
+    drop_leg(@fl)
+    Process.sleep(@sleep)
+    drop_leg(@br)
+    Process.sleep(@move_sleep)
+  end
+  #/////////////////////////////////////
+  #Funs to turn anticlockwise
+  def turn_anticl_frl() do
+    lift_leg(@fr)
+    Process.sleep(@sleep)
+    lift_leg(@bl)
+    Process.sleep(@move_sleep)
+
+    move_leg(@fl, 125)
+    Process.sleep(@sleep)
+    move_leg(@br, 125)
+    Process.sleep(@sleep)
+    move_leg(@fr, 45)
+    Process.sleep(@sleep)
+    move_leg(@bl, 45)
+    Process.sleep(@move_sleep)
+
+    drop_leg(@fr)
+    Process.sleep(@sleep)
+    drop_leg(@bl)
+    Process.sleep(@move_sleep)
+  end
+
+  def turn_anticl_fll() do
+    lift_leg(@fl)
+    Process.sleep(@sleep)
+    lift_leg(@br)
+    Process.sleep(@move_sleep)
+
+    move_leg(@fr, 125)
+    Process.sleep(@sleep)
+    move_leg(@bl, 125)
+    Process.sleep(@sleep)
+    move_leg(@fl, 45)
+    Process.sleep(@sleep)
+    move_leg(@br, 45)
+    Process.sleep(@move_sleep)
+
+    drop_leg(@fl)
+    Process.sleep(@sleep)
+    drop_leg(@br)
+    Process.sleep(@move_sleep)
+  end
+
+  ######################################
+  ######################################
+
+  def turn(dir) do
+    case dir do
+      :cl ->
+        turn_cl_frl
+        turn_cl_fll
+      :anti ->
+        turn_anticl_frl
+        turn_anticl_fll
     end
-
-    initial(handle)
   end
 
-  def say_hi(handle) do
-    lift_leg(handle, @fr)
+  def say_hi() do
+    lift_leg(@fr)
     Process.sleep(@sleep)
-    move_leg(handle, @fr, :bw)
+    move_leg(@fr, 45)
     Process.sleep(@move_sleep + 200)
 
     for n <- 0..2 do
-      move_knee(handle, @fr, 0)
+      move_knee(@fr, 0)
       Process.sleep(@move_sleep)
-      move_knee(handle, @fr, 90)
+      move_knee(@fr, 90)
       Process.sleep(@move_sleep)
     end
-
-    initial(handle)
-  end
-
-  def turn(handle, dir) do
-    case dir do
-      :cl ->
-        for n <- [@fr, @br, @bl, @fl] do
-          lift_leg(handle, n)
-          Process.sleep(@move_sleep)
-          move_leg(handle, n, :fw)
-          Process.sleep(@move_sleep)
-          drop_leg(handle, n)
-          Process.sleep(@sleep)
-        end
-
-        initial(handle)
-
-      :anti ->
-        for n <- [@fr, @br, @bl, @fl] do
-          lift_leg(handle, n)
-          Process.sleep(@move_sleep)
-          move_leg(handle, n, :bw)
-          Process.sleep(@move_sleep)
-          drop_leg(handle, n)
-          Process.sleep(@sleep)
-        end
-
-        initial(handle)
-    end
+    move_leg(@fr, 90)
+    Process.sleep(@move_sleep)
+    initial()
   end
 end

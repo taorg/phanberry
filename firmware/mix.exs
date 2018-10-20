@@ -38,7 +38,9 @@ defmodule Firmware.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:nerves, "~> 1.3.1", runtime: false}
+      {:nerves, "~> 1.3.1", runtime: false},
+      {:shoehorn, "~> 0.4"},
+      {:ring_logger, "~> 0.5"}
     ] ++ deps(@target)
   end
 
@@ -50,7 +52,6 @@ defmodule Firmware.MixProject do
       {:nerves_init_gadget, "~> 0.5"},
       {:nerves_firmware_ssh, "~> 0.3"},
       {:nerves_runtime, "~> 0.8"},
-      {:shoehorn, "~> 0.4"},
       {:uisrv, path: "../uisrv"},
       {:event_bus, "~> 1.5"},
       {:elixir_uuid, "~> 1.2"},

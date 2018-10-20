@@ -3,4 +3,7 @@
 /uisrv_1.3
 *.iml
 uisrv_test*
-*/.idea/*
+firmware/.idea/workspace.xml
+firmware/.idea/vcs.xml
+firmware/.idea/modules.xml
+firmware/.idea/misc.xml

@@ -1,43 +1,21 @@
 # Configuration for the Raspberry Pi 3 (target rpi3)
 use Mix.Config
 
-# Add the RingLogger backend. This removes the
-# default :console backend.
-config :logger, backends: [RingLogger]
-
-# Set the number of messages to hold in the circular buffer
-config :logger, RingLogger, max_size: 500
-config :logger, level: :debug
-
-key_mgmt = System.get_env("NERVES_NETWORK_KEY_MGMT") || "WPA-PSK"
-
-config :nerves_network,
-  regulatory_domain: "ES"
-
-config :nerves_network, :default,
-  wlan0: [
-    ipv4_address_method: :dhcp,
-    ssid: System.get_env("NERVES_NETWORK_SSID"),
-    psk: System.get_env("NERVES_NETWORK_PSK"),
-    key_mgmt: String.to_atom(key_mgmt)
+# Event bus topics
+config :event_bus,
+  topics: [
+    :rpbrr_msg_tx,
+    :rpbrr_cmd_rx,
+    :rpbrr_error,
+    :phx_msg_rx,
+    :phx_cmd_tx,
+    :jstick_tx_event,
+    :jstick_tx_obj
   ],
-  eth0: [
-    ipv4_address_method: :dhcp
-  ]
-
-# Uncomment the following line for the interface you intend to use,
-# if not the wired :eth0 interface.
-config :firmware, interface: :wlan0
-# config :firmware, interface: :eth0
-# config :firmware, interface: :usb0
-
-# Nerves.Firmware.SSH An infrastruction to support "over-the-air" firmware updates with Nerves by using ssh
-config :nerves_firmware_ssh,
-  authorized_keys: [
-    File.read!(Path.join(System.user_home!(), ".skm/taorg-rbrr-dev/id_rsa.pub")),
-    File.read!(Path.join(System.user_home!(), ".skm/Mlopezc-rrbp3/id_rsa.pub")),
-    File.read!(Path.join(System.user_home!(), ".skm/johannrbpi/id_rsa.pub"))
-  ]
+  # integer
+  ttl: 30_000_000,
+  # atom
+  time_unit: :microsecond
 
 #
 # PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX-PHOENIX

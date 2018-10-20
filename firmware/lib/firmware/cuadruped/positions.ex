@@ -1,39 +1,76 @@
 defmodule Firmware.Cuadruped.Positions do
   require Logger
-  alias Nerves.Grove.Servo
+  alias Nerves.Grove.PCA9685.{Servo,Tetrapod}
 
   @moduledoc """
   This module will set some leg positions so they can be combined later in the Firmware.Cuadruped.Movements
 
-  leg = %{b: 18, h: 23, k: 24}
-alias Firmware.Cuadruped.Positions
-alias Nerves.Grove.Servo
+  alias Firmware.Cuadruped.Positions
 
-    Servo.rotate(leg.b, 90)
-    Servo.rotate(leg.h, 90)
-    Servo.rotate(leg.k, 90)
   """
-  @fr %{b: 23, h: 18, k: 24}
+  @fr %{b: :frb, h: :frh, k: :frk}
 
-  @br %{b: 25, h: 12, k: 16}
+  @br %{b: :brb, h: :brh, k: :brk}
 
-  @bl %{b: 17, h: 27, k: 22}
+  @bl %{b: :blb, h: :blh, k: :blk}
 
-  @fl %{b: 13, h: 19, k: 26}
+  @fl %{b: :flb, h: :flh, k: :flk}
+
+  @bs [:frb, :brb, :blb, :flb]
+  @hs [:frh, :brh, :blh, :flh]
+  @ks [:frk, :brk, :blk, :flk]
+
+  @sleep 5
 
   @doc """
   The pins for the servos are set here, e.g.: frb = front right body
   """
 
-  def initial(leg) do
-    Logger.debug("Into the initial fn, #{inspect(leg)}")
-    Servo.rotate(leg.b, 90)
-    Servo.rotate(leg.h, 90)
-    Servo.rotate(leg.k, 90)
-    Logger.debug("Into the initial fn, #{inspect(leg)}, body pin = #{inspect(leg.b)} ")
+  def initial() do
+    for n <- @bs do
+      Servo.position(Tetrapod.limb_id(n), 90)
+      Process.sleep(@sleep)
+    end
+
+    for n <- @hs do
+      Servo.position(Tetrapod.limb_id(n), 45)
+      Process.sleep(@sleep)
+    end
+
+    for n <- @ks do
+      Servo.position(Tetrapod.limb_id(n), 90)
+      Process.sleep(@sleep)
+    end
   end
 
-  def invoke() do
-    initial(@fr)
+  def lift_leg(leg) do
+    Servo.position(Tetrapod.limb_id(leg.h), 90)
+  end
+
+  def drop_leg(leg) do
+    Servo.position(Tetrapod.limb_id(leg.h), 45)
+  end
+
+  def move_knee(leg, angle) do
+    Servo.position(Tetrapod.limb_id(leg.k), angle)
+  end
+
+  def move_leg(leg, angle) do
+    Servo.position(Tetrapod.limb_id(leg.b), angle)
+  end
+
+  def y_body(dir, angle) do
+    case dir do
+      :up ->
+        angle = angle + 10
+
+      :down ->
+        angle = angle - 10
+    end
+
+    for n <- @hs do
+      Servo.position(Tetrapod.limb_id(n), angle)
+      Process.sleep(@sleep)
+    end
   end
 end

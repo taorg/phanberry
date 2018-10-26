@@ -1,6 +1,6 @@
 defmodule Firmware.Cuadruped.Positions do
   require Logger
-  alias Nerves.Grove.PCA9685.{Servo,Tetrapod}
+  alias Nerves.Grove.PCA9685.{Servo, Tetrapod}
 
   @moduledoc """
   This module will set some leg positions so they can be combined later in the Firmware.Cuadruped.Movements
@@ -20,8 +20,6 @@ defmodule Firmware.Cuadruped.Positions do
   @hs [:frh, :brh, :blh, :flh]
   @ks [:frk, :brk, :blk, :flk]
 
-  @sleep 5
-
   @doc """
   The pins for the servos are set here, e.g.: frb = front right body
   """
@@ -29,17 +27,14 @@ defmodule Firmware.Cuadruped.Positions do
   def initial() do
     for n <- @bs do
       Servo.position(Tetrapod.limb_id(n), 90)
-      Process.sleep(@sleep)
     end
 
     for n <- @hs do
       Servo.position(Tetrapod.limb_id(n), 45)
-      Process.sleep(@sleep)
     end
 
     for n <- @ks do
       Servo.position(Tetrapod.limb_id(n), 90)
-      Process.sleep(@sleep)
     end
   end
 
@@ -70,7 +65,6 @@ defmodule Firmware.Cuadruped.Positions do
 
     for n <- @hs do
       Servo.position(Tetrapod.limb_id(n), angle)
-      Process.sleep(@sleep)
     end
   end
 end

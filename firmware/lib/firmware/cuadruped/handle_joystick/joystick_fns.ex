@@ -1,6 +1,16 @@
 defmodule Firmware.Cuadruped.Handle_joystick.Fns do
   require Logger
 
+  @moduledoc """
+  To test this module:
+
+  alias Firmware.Cuadruped.Handle_joystick.Fns
+  {:ok, pid} = Fns.start_link()
+  Fns.handle("dir:up", pid) #This should start the loop
+  Fns.handle("end", pid) #This should stop it
+
+  """
+
   def start_link() do
     GenServer.start_link(Firmware.Cuadruped.Handle_joystick.Srvr, :ok, name: __MODULE__)
   end

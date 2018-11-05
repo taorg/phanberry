@@ -58,8 +58,8 @@ defmodule Firmware.MixProject do
       {:elixir_ale, "~> 1.1"},
       {:pigpiox, path: "../../pigpiox"},
       # {:nerves_grove, github: "Manolets/nerves_grove"},
-      {:nerves_grove, path: "../../nerves_grove"},
-      #{:nerves_dht, git: "https://github.com/visciang/nerves_dht.git", tag: "1.1.4"}
+      {:nerves_grove, path: "../../nerves_grove"}
+      # {:nerves_dht, git: "https://github.com/visciang/nerves_dht.git", tag: "1.1.4"}
       # {:ex_lcd, path: "../../ex_lcd"}
     ] ++ system(target)
   end

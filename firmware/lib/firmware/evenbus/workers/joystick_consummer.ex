@@ -34,7 +34,7 @@ defmodule Firmware.EventBus.Workers.JoystickConsummer do
     event = EventBus.fetch_event({topic, id})
 
     # Do sth with the event
-    Firmware.Cuadruped.Handle_joystick.handle(event)
+    Firmware.Cuadruped.Handle_joystick.Fns.handle(event)
     # Or just log for the sample
     Logger.info("I am handling the event with GenServer #{__MODULE__}")
     Logger.info(fn -> inspect(event) end)

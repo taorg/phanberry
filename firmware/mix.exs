@@ -73,5 +73,4 @@ defmodule Firmware.MixProject do
 
   # defp system("phanberry_rpi3"),
   #   do: [{:custom_rpi3, path: "../phanberry_system_rpi3", runtime: false}]
-
 end

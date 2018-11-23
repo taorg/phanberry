@@ -3,19 +3,19 @@ defmodule Firmware.Cuadruped.Positions do
   alias Nerves.Grove.PCA9685.{Servo, Tetrapod}
 
   @moduledoc """
-  This module will set some leg positions so they can be combined later in the Firmware.Cuadruped.Movements
+    This module will set some leg positions so they can be combined later in the Firmware.Cuadruped.Movements
 
-  alias Firmware.Cuadruped.Positions
+    alias Firmware.Cuadruped.Positions
 
+
+    @fr %{b: :frb, h: :frh, k: :frk}
+
+    @br %{b: :brb, h: :brh, k: :brk}
+
+    @bl %{b: :blb, h: :blh, k: :blk}
+
+    @fl %{b: :flb, h: :flh, k: :flk}
   """
-  @fr %{b: :frb, h: :frh, k: :frk}
-
-  @br %{b: :brb, h: :brh, k: :brk}
-
-  @bl %{b: :blb, h: :blh, k: :blk}
-
-  @fl %{b: :flb, h: :flh, k: :flk}
-
   @bs [:frb, :brb, :blb, :flb]
   @hs [:frh, :brh, :blh, :flh]
   @ks [:frk, :brk, :blk, :flk]
@@ -52,19 +52,5 @@ defmodule Firmware.Cuadruped.Positions do
 
   def move_leg(leg, angle) do
     Servo.position(Tetrapod.limb_id(leg.b), angle)
-  end
-
-  def y_body(dir, angle) do
-    case dir do
-      :up ->
-        angle = angle + 10
-
-      :down ->
-        angle = angle - 10
-    end
-
-    for n <- @hs do
-      Servo.position(Tetrapod.limb_id(n), angle)
-    end
   end
 end

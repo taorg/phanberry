@@ -10,9 +10,13 @@ defmodule Firmware.Cuadruped.Movements do
 
   @fl %{b: :flb, h: :flh, k: :flk}
 
-  @bs [:frb, :brb, :blb, :flb]
-  @hs [:frh, :brh, :blh, :flh]
-  @ks [:frk, :brk, :blk, :flk]
+  @doc """
+
+
+    @bs [:frb, :brb, :blb, :flb]
+    @hs [:frh, :brh, :blh, :flh]
+    @ks [:frk, :brk, :blk, :flk]
+  """
 
   @move_sleep 500
   ######################################
@@ -21,7 +25,7 @@ defmodule Firmware.Cuadruped.Movements do
   def step_left_fw() do
     lift_leg(@bl)
 
-    move_leg(@bl, 45)
+    move_leg(@bl, 125)
     Process.sleep(@move_sleep)
     drop_leg(@bl)
     Process.sleep(@move_sleep)
@@ -33,7 +37,6 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@br, 125)
 
     move_leg(@bl, 90)
-    Process.sleep(@move_sleep)
 
     move_leg(@fl, 125)
     Process.sleep(@move_sleep)
@@ -50,12 +53,11 @@ defmodule Firmware.Cuadruped.Movements do
 
     lift_leg(@fr)
 
-    move_leg(@fl, 125)
+    move_leg(@fl, 45)
 
-    move_leg(@bl, 125)
+    move_leg(@bl, 45)
 
     move_leg(@br, 90)
-    Process.sleep(@move_sleep)
 
     move_leg(@fr, 45)
     Process.sleep(@move_sleep)
@@ -79,7 +81,6 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@fr, 125)
 
     move_leg(@fl, 90)
-    Process.sleep(@move_sleep)
 
     move_leg(@bl, 125)
     Process.sleep(@move_sleep)
@@ -101,7 +102,6 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@fl, 125)
 
     move_leg(@fr, 90)
-    Process.sleep(@move_sleep)
 
     move_leg(@br, 125)
     Process.sleep(@move_sleep)
@@ -125,7 +125,6 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@fr, 125)
 
     move_leg(@br, 90)
-    Process.sleep(@move_sleep)
 
     move_leg(@bl, 125)
     Process.sleep(@move_sleep)
@@ -147,7 +146,6 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@br, 125)
 
     move_leg(@fr, 90)
-    Process.sleep(@move_sleep)
 
     move_leg(@fl, 125)
     Process.sleep(@move_sleep)
@@ -171,7 +169,6 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@fr, 125)
 
     move_leg(@bl, 90)
-    Process.sleep(@move_sleep)
 
     move_leg(@br, 125)
     Process.sleep(@move_sleep)
@@ -193,7 +190,6 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@br, 125)
 
     move_leg(@fl, 90)
-    Process.sleep(@move_sleep)
 
     move_leg(@fr, 125)
     Process.sleep(@move_sleep)
@@ -376,7 +372,7 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@fr, 45)
     Process.sleep(@move_sleep + 200)
 
-    for n <- 0..2 do
+    for _n <- 0..2 do
       move_knee(@fr, 0)
       Process.sleep(@move_sleep)
       move_knee(@fr, 90)
@@ -386,5 +382,41 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@fr, 90)
     Process.sleep(@move_sleep)
     initial()
+  end
+
+  def test_fn(fun) do
+    task_pid =
+      Task.start(fn ->
+        loop(fun)
+      end)
+
+    task_pid
+  end
+
+  def send_stop(pid) do
+    send(pid, :stop)
+    initial()
+  end
+
+  def loop(fun) do
+    receive do
+      :stop ->
+        exit(:shutdown)
+    end
+
+    Logger.debug("Loop started")
+
+    case fun do
+      :run ->
+        run()
+
+      :left ->
+        turn(:anti)
+
+      :rt ->
+        turn(:cl)
+    end
+
+    loop(fun)
   end
 end

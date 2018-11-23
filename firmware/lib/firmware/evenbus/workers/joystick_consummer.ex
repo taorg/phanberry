@@ -36,13 +36,13 @@ defmodule Firmware.EventBus.Workers.JoystickConsummer do
     # Do sth with the event
     Firmware.Cuadruped.Handle_joystick.Fns.handle(event)
     # Or just log for the sample
-    Logger.info("I am handling the event with GenServer #{__MODULE__}")
-    Logger.info(fn -> inspect(event) end)
-    Logger.debug("topic->#{inspect(topic)}
-      -id->#{inspect(id)}
-      -state->#{inspect(state)}
-      -event->#{inspect(event)}
-      -state->#{inspect(state)}")
+    # Logger.info("I am handling the event with GenServer #{__MODULE__}")
+    # Logger.info(fn -> inspect(event) end)
+    # Logger.debug("topic->#{inspect(topic)}
+    #  -id->#{inspect(id)}
+    #  -state->#{inspect(state)}
+    #  -event->#{inspect(event)}
+    #  -state->#{inspect(state)}")
 
     # mark the event as completed for this consumer
     EventBus.mark_as_completed({__MODULE__, topic, id})

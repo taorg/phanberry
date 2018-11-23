@@ -1,78 +1,76 @@
 <div class="container">
 
-<div id="buttons" class="btn-group" role="group" aria-label="Button group with nested dropdown">
-  <button data-type="static" type="button" class="btn btn-outline-primary static">static</button>
-  <button data-type="dynamic" type="button" class="btn btn-outline-success dynamic">dynamic</button>
-  <a data-type="exit" type="button" class="btn btn-outline-warning static" href="../">exit</a>
-  <div class="btn-group" role="group">
-    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Dropdown
-    </button>
-    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-      <a class="dropdown-item" href="#">Dropdown link</a>
-      <a class="dropdown-item" href="#">Dropdown link</a>
+    <div id="buttons" class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button data-type="static" type="button" class="btn btn-outline-primary static">static</button>
+        <button data-type="dynamic" type="button" class="btn btn-outline-success dynamic">dynamic</button>
+        <a data-type="exit" type="button" class="btn btn-outline-warning static" href="../">exit</a>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <a class="dropdown-item" href="#">Dropdown link</a>
+                <a class="dropdown-item" href="#">Dropdown link</a>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </div>
 <div id="zone_joystick">
-  <div id="joystick_debug">
-    <ul>
-      <li class="position">
-        position :
+    <div id="joystick_debug">
         <ul>
-          <li class="x">x : 
-            <span class='data'></span>
-          </li>
-          <li class="y">y : 
-            <span class='data'></span>
-          </li>
+            <li class="position">
+                position :
+                <ul>
+                    <li class="x">x :
+                        <span class='data'></span>
+                    </li>
+                    <li class="y">y :
+                        <span class='data'></span>
+                    </li>
+                </ul>
+            </li>
+            <li class="force">force :
+                <span class='data'></span>
+            </li>
+            <li class="pressure">pressure :
+                <span class='data'></span>
+            </li>
+            <li class="distance">distance :
+                <span class='data'></span>
+            </li>
+            <li class="angle">
+                angle :
+                <ul>
+                    <li class="radian">radian :
+                        <span class='data'></span>
+                    </li>
+                    <li class="degree">degree :
+                        <span class='data'></span>
+                    </li>
+                </ul>
+            </li>
+            <li class="direction">
+                direction :
+
+                <ul>
+                    <li class="x">x :
+                        <span class='data'></span>
+                    </li>
+                    <li class="y">y :
+                        <span class='data'></span>
+                    </li>
+                    <li class="angle">angle :
+                        <span class='data'></span>
+                    </li>
+                </ul>
+            </li>
         </ul>
-      </li>
-      <li class="force">force : 
-        <span class='data'></span>
-      </li>
-      <li class="pressure">pressure : 
-        <span class='data'></span>
-      </li>
-      <li class="distance">distance : 
-        <span class='data'></span>
-      </li>
-      <li class="angle">
-        angle :
-        <ul>
-          <li class="radian">radian : 
-            <span class='data'></span>
-          </li>
-          <li class="degree">degree : 
-            <span class='data'></span>
-          </li>
-        </ul>
-      </li>
-      <li class="direction">
-        direction :
-        
-        <ul>
-          <li class="x">x : 
-            <span class='data'></span>
-          </li>
-          <li class="y">y : 
-            <span class='data'></span>
-          </li>
-          <li class="angle">angle : 
-            <span class='data'></span>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <div class="dump"></div>
-  </div>
-  <div class="zone static active">
-    <h1>static</h1>
-  </div>
-  <div class="zone dynamic">
-    <h1>dynamic</h1>
-  </div>
+        <div class="dump"></div>
+    </div>
+    <div class="zone static active">
+        <h1>static</h1>
+    </div>
+    <div class="zone dynamic">
+        <h1>dynamic</h1>
+    </div>
 </div>
-
-

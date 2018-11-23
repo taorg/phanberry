@@ -38,9 +38,9 @@ defmodule Firmware.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:nerves, "~> 1.3.1", runtime: false},
+      {:nerves, "~> 1.3.4", runtime: false},
       {:shoehorn, "~> 0.4"},
-      {:ring_logger, "~> 0.5"}
+      {:ring_logger, "~> 0.6"}
     ] ++ deps(@target)
   end
 

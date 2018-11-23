@@ -31,6 +31,14 @@ config :logger, level: :debug
 
 key_mgmt = System.get_env("NERVES_NETWORK_KEY_MGMT") || "WPA-PSK"
 
+# Set a mdns domain and node_name to be able to remsh into the device.
+config :nerves_init_gadget,
+  ifname: "wlan0",
+  address_method: :dhcp,
+  node_name: :phanberry1,
+  mdns_domain: ":ptbsl.com",
+  ssh_console_port: 22
+
 config :nerves_network,
   regulatory_domain: "ES"
 
@@ -45,6 +53,7 @@ config :nerves_network, :default,
     ipv4_address_method: :dhcp
   ]
 
+
 # Uncomment the following line for the interface you intend to use,
 # if not the wired :eth0 interface.
 config :firmware, interface: :wlan0
@@ -58,13 +67,5 @@ config :nerves_firmware_ssh,
     File.read!(Path.join(System.user_home!(), ".skm/Mlopezc-rrbp3/id_rsa.pub")),
     File.read!(Path.join(System.user_home!(), ".skm/johannrbpi/id_rsa.pub"))
   ]
-
-# Set a mdns domain and node_name to be able to remsh into the device.
-config :nerves_init_gadget,
-  ifname: "wlan0",
-  address_method: :dhcp,
-  node_name: :phanberry1,
-  mdns_domain: ":ptbsl.com",
-  ssh_console_port: 22
 
 import_config "#{Mix.Project.config()[:target]}.exs"

@@ -45,7 +45,7 @@ defmodule Firmware.Cuadruped.Handle_joystick.Srvr do
   end
 
   defp check_loop(is_loop_on) do
-    if is_loop_on === :on do
+    if is_loop_on == :on do
       Process.send(self(), :left_loop, [:nosuspend])
     end
   end

@@ -3,7 +3,7 @@ defmodule Firmware.Cuadruped.Dance do
 
   @moduledoc """
   The purpose of the module is solely to make the robot perform a little dance
-  """
+
 
   @fr %{b: :frb, h: :frh, k: :frk}
 
@@ -16,4 +16,8 @@ defmodule Firmware.Cuadruped.Dance do
   @bs [:frb, :brb, :blb, :flb]
   @hs [:frh, :brh, :blh, :flh]
   @ks [:frk, :brk, :blk, :flk]
+  """
+  def some() do
+    initial()
+  end
 end

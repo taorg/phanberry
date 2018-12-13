@@ -6,12 +6,11 @@ defmodule Firmware.Cuadruped.Controler.Superisor do
   end
 
   def init(opts) do
-
     children = [
       {Registry, keys: :unique, name: :controler_registry},
       worker(Firmware.Cuadruped.Controler.Fns, [opts])
     ]
+
     Supervisor.init(children, strategy: :one_for_all)
   end
-
 end

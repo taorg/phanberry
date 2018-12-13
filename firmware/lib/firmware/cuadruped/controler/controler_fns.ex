@@ -8,5 +8,4 @@ defmodule Firmware.Cuadruped.Controler.Fns do
   def via_tuple do
     {:via, Registry, {:controler_registry, :controler_server}}
   end
-
 end

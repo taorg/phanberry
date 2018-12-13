@@ -53,7 +53,6 @@ config :nerves_network, :default,
     ipv4_address_method: :dhcp
   ]
 
-
 # Uncomment the following line for the interface you intend to use,
 # if not the wired :eth0 interface.
 config :firmware, interface: :wlan0

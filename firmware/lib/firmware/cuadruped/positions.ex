@@ -54,16 +54,16 @@ defmodule Firmware.Cuadruped.Positions do
     Servo.position(Tetrapod.limb_id(leg.b), angle)
   end
 
-  def sit(n \\ 90) do
-    n = n + 10
+  def sit(n \\ 45) do
+    n = n + 5
 
     for c <- @hs do
       Servo.position(Tetrapod.limb_id(c), n)
     end
 
-    Process.sleep(100)
+    Process.sleep(250)
 
-    if n < 180 do
+    if n < 90 do
       sit(n)
     else
       end_sit()
@@ -72,7 +72,29 @@ defmodule Firmware.Cuadruped.Positions do
 
   def end_sit() do
     for c <- @ks do
-      Servo.position(Tetrapod.limb_id(c), 180)
+      Servo.position(Tetrapod.limb_id(c), 90)
+    end
+  end
+
+  def lay(n \\ 45) do
+    n = n - 5
+
+    for c <- @hs do
+      Servo.position(Tetrapod.limb_id(c), n)
+    end
+
+    Process.sleep(250)
+
+    if n < 0 do
+      sit(n)
+    else
+      end_lay()
+    end
+  end
+
+  def end_lay() do
+    for c <- @ks do
+      Servo.position(Tetrapod.limb_id(c), 0)
     end
   end
 end

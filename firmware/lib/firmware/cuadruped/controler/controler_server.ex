@@ -130,9 +130,11 @@ defmodule Firmware.Cuadruped.Controler.Srvr do
 
   def handle_info({:start_moving, dir, real_state}, state) do
     Process.sleep(1)
+
     if state.is_moving == :yes do
-    server_move(dir, real_state)
+      server_move(dir, real_state)
     end
+
     state = %{state | step_to_do: real_state.step_to_do}
     {:noreply, state}
   end
@@ -146,27 +148,27 @@ defmodule Firmware.Cuadruped.Controler.Srvr do
   def server_move(dir, state) do
     Logger.debug("Got here with this state: #{inspect(state)}")
 
-      step_to_do = state.step_to_do
+    step_to_do = state.step_to_do
 
-      new_state =
-        case step_to_do do
-          :right ->
-            right_step(dir)
-            new_state = %{state | step_to_do: :left}
-            Logger.debug("Done right step")
-            new_state
+    new_state =
+      case step_to_do do
+        :right ->
+          right_step(dir)
+          new_state = %{state | step_to_do: :left}
+          Logger.debug("Done right step")
+          new_state
 
-          :left ->
-            left_step(dir)
-            new_state = %{state | step_to_do: :right}
-            Logger.debug("Done left step")
-            new_state
+        :left ->
+          left_step(dir)
+          new_state = %{state | step_to_do: :right}
+          Logger.debug("Done left step")
+          new_state
 
-          _ ->
-            Logger.debug("Step to do not defined")
-        end
+        _ ->
+          Logger.debug("Step to do not defined")
+      end
 
-      Process.send(self(), {:start_moving, dir, new_state}, [:nosuspend])
+    Process.send(self(), {:start_moving, dir, new_state}, [:nosuspend])
   end
 
   def left_step(dir) do

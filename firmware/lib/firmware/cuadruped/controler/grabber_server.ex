@@ -8,7 +8,7 @@ defmodule Firmware.Cuadruped.Grabber do
   end
 
   def init(device) do
-    state = %{grabberx: 90, grabbery: 90, is_moving: :no}
+    state = %{grabberx: 90, grabbery: 90, is_moving: :no, how_closed: 0, is_closing: :no}
     InputEvent.start_link(device)
     {:ok, state}
   end
@@ -17,11 +17,21 @@ defmodule Firmware.Cuadruped.Grabber do
     state =
       case event do
         [{:ev_msc, :msc_scan, 589_830}, {:ev_key, :btn_z, 1}] ->
-          Servo.position(Tetrapod.limb_id(:pinza), 0)
+          Process.send(self(), :close, [:nosuspend])
+          state = %{state | is_closing: :yes}
+          state
+
+        [{:ev_msc, :msc_scan, 589_830}, {:ev_key, :btn_z, 0}] ->
+          Process.send(self(), :stop_closing, [:nosuspend])
           state
 
         [{:ev_msc, :msc_scan, 589_832}, {:ev_key, :btn_tr, 1}] ->
-          Servo.position(Tetrapod.limb_id(:pinza), 180)
+          Process.send(self(), :open, [:nosuspend])
+          state = %{state | is_closing: :yes}
+          state
+
+        [{:ev_msc, :msc_scan, 589_830}, {:ev_key, :btn_tr, 0}] ->
+          Process.send(self(), :stop_closing, [:nosuspend])
           state
 
         # Button Y
@@ -30,18 +40,10 @@ defmodule Firmware.Cuadruped.Grabber do
           state = %{state | is_moving: :yes}
           state
 
-        [{:ev_msc, :msc_scan, 589_825}, {:ev_key, :btn_a, 0}] ->
-          Process.send(self(), :stop_moving, [:nosuspend])
-          state
-
         # Button B
         [{:ev_msc, :msc_scan, 589_826}, {:ev_key, :btn_b, 1}] ->
           Process.send(self(), {:dir, "right"}, [:nosuspend])
           state = %{state | is_moving: :yes}
-          state
-
-        [{:ev_msc, :msc_scan, 589_826}, {:ev_key, :btn_b, 0}] ->
-          Process.send(self(), :stop_moving, [:nosuspend])
           state
 
         # Button A
@@ -50,17 +52,13 @@ defmodule Firmware.Cuadruped.Grabber do
           state = %{state | is_moving: :yes}
           state
 
-        [{:ev_msc, :msc_scan, 589_827}, {:ev_key, :btn_c, 0}] ->
-          Process.send(self(), :stop_moving, [:nosuspend])
-          state
-
         # Button X
         [{:ev_msc, :msc_scan, 589_828}, {:ev_key, :btn_x, 1}] ->
           Process.send(self(), {:dir, "left"}, [:nosuspend])
           state = %{state | is_moving: :yes}
           state
 
-        [{:ev_msc, :msc_scan, 589_828}, {:ev_key, :btn_x, 0}] ->
+        [{:ev_msc, :msc_scan, _}, {:ev_key, _, 0}] ->
           Process.send(self(), :stop_moving, [:nosuspend])
           state
 
@@ -76,6 +74,34 @@ defmodule Firmware.Cuadruped.Grabber do
     Logger.debug("Stop moving grabber")
     state = %{state | is_moving: :no}
     {:noreply, state}
+  end
+
+  def handle_info(:stop_closing, state) do
+    Logger.debug("Stop closing grabber")
+    state = %{state | is_closing: :no}
+    {:noreply, state}
+  end
+
+  def handle_info(:open, state) do
+    if state.how_closed > 180 and state.is_closing == :yes do
+      opening = state.how_closed + 5
+      Servo.position(Tetrapod.limb_id(:pinza), opening)
+      state = %{state | how_closed: opening}
+      Process.sleep(500)
+      Process.send(self(), :open, [:nosuspend])
+      state
+    end
+  end
+
+  def handle_info(:close, state) do
+    if state.how_closed < 0 and state.is_closing == :yes do
+      opening = state.how_closed - 5
+      Servo.position(Tetrapod.limb_id(:pinza), opening)
+      state = %{state | how_closed: opening}
+      Process.sleep(500)
+      Process.send(self(), :close, [:nosuspend])
+      state
+    end
   end
 
   def handle_info({:dir, dir}, state) do

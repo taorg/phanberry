@@ -18,10 +18,9 @@ defmodule Firmware.Application do
     children =
       [
         # worker(Firmware.Worker, [arg1, arg2, arg3]),
-        # ,
         supervisor(JoystickSupervisor, [], id: make_ref(), restart: :permanent)
         # supervisor(ControlerSupervisor, [], restart: :permanent),
-        # supervisor(Tetrapod, [])
+        # supervisor(Tetrapod, [], id: make_ref())
       ] ++ children(@target)
 
     opts = [strategy: :one_for_one, name: Firmware.Supervisor]

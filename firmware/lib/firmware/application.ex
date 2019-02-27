@@ -6,8 +6,6 @@ defmodule Firmware.Application do
   @target Mix.Project.config()[:target]
   alias Firmware.EventBus.Supervisors.Joystick, as: JoystickSupervisor
   alias Firmware.EventBus.Workers.JoystickConsummer, as: JoystickListener
-  # alias Firmware.Cuadruped.Controler.Superisor, as: ControlerSupervisor
-  # alias Nerves.Grove.PCA9685.Tetrapod
   use Application
 
   def start(_type, _args) do
@@ -19,8 +17,8 @@ defmodule Firmware.Application do
       [
         # worker(Firmware.Worker, [arg1, arg2, arg3]),
         supervisor(JoystickSupervisor, [], id: make_ref(), restart: :permanent)
-        # supervisor(ControlerSupervisor, [], restart: :permanent),
-        # supervisor(Tetrapod, [], id: make_ref())
+        # supervisor(Firmware.Cuadruped.Controler.Superisor, [], restart: :permanent),
+        # supervisor(Nerves.Grove.PCA9685.Tetrapod, [], id: make_ref())
       ] ++ children(@target)
 
     opts = [strategy: :one_for_one, name: Firmware.Supervisor]

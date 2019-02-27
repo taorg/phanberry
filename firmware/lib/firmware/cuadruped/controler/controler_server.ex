@@ -20,7 +20,9 @@ defmodule Firmware.Cuadruped.Controler.Srvr do
     else
       [device] = InputEvent.Enumerate.all_devices()
       InputEvent.start_link(device)
-      Firmware.Cuadruped.Grabber.start_link(device)
+      Firmware.Cuadruped.Inclination.start_link(device)
+      Nerves.Grove.PCA9685.Tetrapod.start_shield()
+      initial()
     end
 
     Process.sleep(500)
@@ -94,6 +96,10 @@ defmodule Firmware.Cuadruped.Controler.Srvr do
       # Top little
       [{:ev_msc, :msc_scan, 589_829}, {:ev_key, :btn_y, 1}] ->
         lay()
+
+      # Start -> do a reboot
+      [{:ev_msc, :msc_scan, 589_834}, {:ev_key, :btn_tr2, 1}] ->
+        Nerves.Runtime.reboot()
 
       [{:ev_abs, _, 0}] ->
         Process.send(self(), :stop_moving, [:nosuspend])
@@ -174,7 +180,7 @@ defmodule Firmware.Cuadruped.Controler.Srvr do
   def left_step(dir) do
     case dir do
       "fw" ->
-        step_left_fw()
+        step_fw()
 
       "right" ->
         step_back_rt()
@@ -193,7 +199,7 @@ defmodule Firmware.Cuadruped.Controler.Srvr do
   def right_step(dir) do
     case dir do
       "fw" ->
-        step_right_fw()
+        step_fw()
 
       "right" ->
         step_front_rt()

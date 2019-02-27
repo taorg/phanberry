@@ -15,7 +15,7 @@ defmodule Firmware.Cuadruped.Movements do
     @hs [:frh, :brh, :blh, :flh]
     @ks [:frk, :brk, :blk, :flk]
   """
-
+  @test_sleep 500
   @move_sleep 500
   ######################################
   ######################################
@@ -24,7 +24,7 @@ defmodule Firmware.Cuadruped.Movements do
     lift_leg(@bl)
 
     move_leg(@bl, 125)
-    Process.sleep(@move_sleep)
+    Process.sleep(@test_sleep)
     drop_leg(@bl)
     Process.sleep(@move_sleep)
 
@@ -45,7 +45,7 @@ defmodule Firmware.Cuadruped.Movements do
     lift_leg(@br)
 
     move_leg(@br, 45)
-    Process.sleep(@move_sleep)
+    Process.sleep(@test_sleep)
     drop_leg(@br)
     Process.sleep(@move_sleep)
 
@@ -60,6 +60,34 @@ defmodule Firmware.Cuadruped.Movements do
     move_leg(@fr, 45)
     Process.sleep(@move_sleep)
     drop_leg(@fr)
+  end
+
+  def step_fw do
+    lift_leg(@fr)
+    move_leg(@fr, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@fr)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@bl)
+    move_leg(@bl, 125)
+    Process.sleep(@move_sleep)
+    drop_leg(@bl)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@br)
+    move_leg(@br, 45)
+    Process.sleep(@move_sleep)
+    drop_leg(@br)
+    Process.sleep(@move_sleep)
+
+    lift_leg(@fl)
+    move_leg(@fl, 125)
+    Process.sleep(@move_sleep)
+    drop_leg(@fl)
+    Process.sleep(@move_sleep)
+
+    initial()
   end
 
   # //////////////////////////////////////
@@ -200,8 +228,7 @@ defmodule Firmware.Cuadruped.Movements do
   def move(dir) do
     case dir do
       :fw ->
-        step_left_fw()
-        step_right_fw()
+        step_fw()
 
       :bw ->
         step_left_bw()
@@ -266,43 +293,37 @@ defmodule Firmware.Cuadruped.Movements do
   def turn_cl_frl() do
     lift_leg(@fr)
 
-    lift_leg(@bl)
-    Process.sleep(@move_sleep)
-
-    move_leg(@fl, 45)
-
-    move_leg(@br, 45)
-
     move_leg(@fr, 125)
+
+    Process.sleep(@move_sleep)
+    drop_leg(@fr)
+
+    lift_leg(@bl)
 
     move_leg(@bl, 125)
     Process.sleep(@move_sleep)
 
-    drop_leg(@fr)
-
     drop_leg(@bl)
     Process.sleep(@move_sleep)
+    initial()
   end
 
   def turn_cl_fll() do
     lift_leg(@fl)
 
-    lift_leg(@br)
-    Process.sleep(@move_sleep)
-
-    move_leg(@fr, 45)
-
-    move_leg(@bl, 45)
-
     move_leg(@fl, 125)
-
-    move_leg(@br, 125)
     Process.sleep(@move_sleep)
 
     drop_leg(@fl)
 
+    lift_leg(@br)
+
+    move_leg(@br, 125)
+    Process.sleep(@move_sleep)
+
     drop_leg(@br)
     Process.sleep(@move_sleep)
+    initial()
   end
 
   # /////////////////////////////////////
@@ -310,43 +331,35 @@ defmodule Firmware.Cuadruped.Movements do
   def turn_anticl_frl() do
     lift_leg(@fr)
 
-    lift_leg(@bl)
+    move_leg(@fr, 45)
     Process.sleep(@move_sleep)
 
-    move_leg(@fl, 125)
-
-    move_leg(@br, 125)
-
-    move_leg(@fr, 45)
+    drop_leg(@fr)
+    lift_leg(@bl)
 
     move_leg(@bl, 45)
     Process.sleep(@move_sleep)
 
-    drop_leg(@fr)
-
     drop_leg(@bl)
     Process.sleep(@move_sleep)
+    initial()
   end
 
   def turn_anticl_fll() do
     lift_leg(@fl)
 
-    lift_leg(@br)
+    move_leg(@fl, 45)
     Process.sleep(@move_sleep)
 
-    move_leg(@fr, 125)
-
-    move_leg(@bl, 125)
-
-    move_leg(@fl, 45)
+    drop_leg(@fl)
+    lift_leg(@br)
 
     move_leg(@br, 45)
     Process.sleep(@move_sleep)
 
-    drop_leg(@fl)
-
     drop_leg(@br)
     Process.sleep(@move_sleep)
+    initial()
   end
 
   ######################################
@@ -365,6 +378,10 @@ defmodule Firmware.Cuadruped.Movements do
   end
 
   def say_hi() do
+    lift_leg(@fl)
+    move_leg(@fl, 125)
+    drop_leg(@fl)
+
     lift_leg(@fr)
 
     move_leg(@fr, 45)

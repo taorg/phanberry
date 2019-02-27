@@ -13,7 +13,9 @@ defmodule Firmware.EventBus.Supervisors.Joystick do
   @doc false
   def init([]) do
     children = [
-      worker(JoystickWorker, [], id: make_ref(), restart: :permanent)
+      worker(JoystickWorker, [], id: make_ref(), restart: :permanent),
+      supervisor(Firmware.Cuadruped.Controler.Superisor, [{}], id: make_ref(), restart: :permanent)
+      # supervisor(Nerves.Grove.PCA9685.Tetrapod, [], id: make_ref(), restart: :permanent)
     ]
 
     opts = [strategy: :one_for_one, name: __MODULE__]

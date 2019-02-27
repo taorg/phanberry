@@ -50,6 +50,10 @@ defmodule Firmware.Cuadruped.Positions do
     Servo.position(Tetrapod.limb_id(leg.k), angle)
   end
 
+  def move_hip(leg, angle) do
+    Servo.position(Tetrapod.limb_id(leg.h), angle)
+  end
+
   def move_leg(leg, angle) do
     Servo.position(Tetrapod.limb_id(leg.b), angle)
   end

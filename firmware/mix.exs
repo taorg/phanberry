@@ -7,7 +7,7 @@ defmodule Firmware.MixProject do
     [
       app: :firmware,
       version: "0.1.0",
-      elixir: "~> 1.6",
+      elixir: "~> 1.8.1",
       target: @target,
       archives: [nerves_bootstrap: "~> 1.5.0"],
       deps_path: "deps/#{@target}",
@@ -38,7 +38,7 @@ defmodule Firmware.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:nerves, "~> 1.3.4", runtime: false},
+      {:nerves, "~> 1.4", runtime: false},
       {:shoehorn, "~> 0.4"},
       {:ring_logger, "~> 0.6"}
     ] ++ deps(@target)
